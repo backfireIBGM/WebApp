@@ -17,21 +17,20 @@ async function fetchRSSWithProxy(proxyUrl, rssUrl) {
     }
 }
 
-async function fetchAllRSSFeeds(proxyUrl, rssUrl) {
+async function fetchAllRSSFeeds(proxyUrl, rssUrls) {
     try {
         // Create an array of promises for all RSS feeds
-        const feedPromises = rss.map(url => fetchRSSWithProxy(proxyUrl, url));
+        const feedPromises = rssUrls.map(url => fetchRSSWithProxy(proxyUrl, url));
         console.log(feedPromises);
         
         const results = await Promise.all(feedPromises); // Wait for all promises to resolve
 
-        
         // Process each feed
         const allFeedItems = [];
         for (const rssText of results) {
             const xmlDoc = parseRSS(rssText);
             const feedItems = extractFeedItems(xmlDoc);
-            allFeedItems.push(...allFeedItems);
+            allFeedItems.push(...feedItems);  // Push the current feed items
         }
         
         return allFeedItems;
@@ -67,22 +66,6 @@ function extractFeedItems(xmlDoc) {
     console.log("feedItems");
     return feedItems;
 }
-
-const proxyUrl = 'https://corsproxy.io/';
-fetchRSSWithProxy(proxyUrl, rssUrl)
-    .then(rssText => {
-        const xmlDoc = parseRSS(rssText);
-        const feedItems = extractFeedItems(xmlDoc);
-        processFeed(feedItems);
-        console.log(feedItems);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-
-// function addContent(obj){
-// for ()
-// }
 
 function processFeed(feedItems) {
     // Get the feed container
@@ -124,7 +107,6 @@ function processFeed(feedItems) {
         const thumbnail = document.createElement("img");
         thumbnail.src = item.thumbnail;
 
-
         // Assemble the card
         title.appendChild(link);
         card.appendChild(thumbnail);
@@ -133,3 +115,14 @@ function processFeed(feedItems) {
         feedContainer.appendChild(card);
     });
 }
+
+const proxyUrl = 'https://corsproxy.io/';
+// Use the new fetchAllRSSFeeds function instead of the single feed approach
+fetchAllRSSFeeds(proxyUrl, rssUrl)
+    .then(feedItems => {
+        processFeed(feedItems);
+        console.log(feedItems);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });

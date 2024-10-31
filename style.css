@@ -16,11 +16,15 @@ h1 {
     margin-bottom: 20px;
     background-color: black;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 30%;
+    width: 28%;
     float: left;
     margin-left: 1%;
-    height: 450px;
+    height: 375px;
     text-align: center;
+}
+
+.card img {
+    width: 100%;
 }
 
 .title {
