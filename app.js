@@ -1,5 +1,6 @@
 const rssUrl = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2RifWkKtDOJdsBA',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q'];
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA'];
 
 async function fetchRSSWithProxy(proxyUrl, rssUrl) {
     try {
@@ -99,8 +100,7 @@ function processFeed(feedItems) {
         link.onmouseover = () => link.style.textDecoration = 'underline';
         link.onmouseout = () => link.style.textDecoration = 'none';
 
-        // Create published date span
-        const published = document.createElement('span');
+        const published = document.createElement('span'); // Create published date span
         published.textContent = formatDate(item.published);
         published.className = 'date';
 
@@ -112,12 +112,13 @@ function processFeed(feedItems) {
         card.appendChild(thumbnail);
         card.appendChild(title);
         card.appendChild(published);
+        // checkbox.appendChild(checkbox);
         feedContainer.appendChild(card);
     });
 }
 
 const proxyUrl = 'https://corsproxy.io/';
-// Use the new fetchAllRSSFeeds function instead of the single feed approach
+
 fetchAllRSSFeeds(proxyUrl, rssUrl)
     .then(feedItems => {
         processFeed(feedItems);
