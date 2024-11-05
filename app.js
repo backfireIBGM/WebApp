@@ -99,6 +99,7 @@ function processFeed(feedItems) {
         link.textContent = item.title;
         link.onmouseover = () => link.style.textDecoration = 'underline';
         link.onmouseout = () => link.style.textDecoration = 'none';
+        link.target = "_blank";
 
         const published = document.createElement('span'); // Create published date span
         published.textContent = formatDate(item.published);
