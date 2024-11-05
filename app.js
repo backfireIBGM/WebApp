@@ -105,15 +105,21 @@ function processFeed(feedItems) {
         published.textContent = formatDate(item.published);
         published.className = 'date';
 
-        const thumbnail = document.createElement("img");
+        const thumbnail = document.createElement('img');
         thumbnail.src = item.thumbnail;
+        thumbnail.alt = item.title;
+
+        const thumbnailLink = document.createElement('a');
+        thumbnailLink.href = link.href;
+        thumbnailLink.target = "_blank";
+        thumbnailLink.appendChild(thumbnail);
+
 
         // Assemble the card
         title.appendChild(link);
-        card.appendChild(thumbnail);
+        card.appendChild(thumbnailLink);
         card.appendChild(title);
         card.appendChild(published);
-        // checkbox.appendChild(checkbox);
         feedContainer.appendChild(card);
     });
 }
