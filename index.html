@@ -5,13 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space News</title>
     <link rel="stylesheet" href="style.css">
-    <script src="app.js"></script>
 </head>
 <body>
+    <input type="search" id="searchBox" placeholder="Search..."/>
+    <!-- <label for="Falcon9Box">Show only Falcon 9</label> -->
     <div class="header-container">
         <img src="Milky_Way_illustration-1.jpeg" alt="beautiful-glowing-gray-full-moon.jpg" class="header-image">
         <h1 class="overlay-text">Space News</h1>
     </div>
-    <div id="feed"></div>
+    <div id="searchFeed"></div>
+    <div id="leftFeed"></div>
+    <div id="middleFeed"></div>
+    <div id="rightFeed"></div>
 </body>
+<script src="app.js"></script>
 </html>
