@@ -78,6 +78,7 @@ document.getElementById('searchBox').addEventListener('keyup', function () {
 
 function processFeed(feedItems, isSearch) {
     if (isSearch) {
+        console.log("search")
         processSearchFeed(feedItems, isSearch)
     }
     else {
@@ -111,8 +112,17 @@ function processFeed(feedItems, isSearch) {
 }
 
 function processSearchFeed(feedItems, isSearch) {
+
+    document.getElementById("leftFeed").classList.add("hidden");
+    document.getElementById("middleFeed").classList.add("hidden");
+    document.getElementById("rightFeed").classList.add("hidden");
+    document.getElementById("searchFeed").classList.remove("hidden");
+
+
     const searchFeed = document.getElementById('searchFeed');
     searchFeed.innerHTML = '';
+
+
 
     let searchResults = []
 
@@ -124,17 +134,55 @@ function processSearchFeed(feedItems, isSearch) {
        // console.log(isSearch);
     }
 
-    // Format date function
-    const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+        // Format date function
+        const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+    searchResults.forEach(item => {
+        // Create card element
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        // Create title with link
+        const title = document.createElement('h2');
+        title.className = 'title';
+
+        const link = document.createElement('a');
+        link.href = item.link;
+        link.textContent = item.title;
+        link.onmouseover = () => link.style.textDecoration = 'underline';
+        link.onmouseout = () => link.style.textDecoration = 'none';
+        link.target = "_blank";
+
+        const published = document.createElement('span'); // Create published date span
+        published.textContent = formatDate(item.published);
+        published.className = 'date';
+
+        const thumbnail = document.createElement('img');
+        thumbnail.src = item.thumbnail;
+        thumbnail.alt = item.title;
+
+        const thumbnailLink = document.createElement('a');
+        thumbnailLink.href = link.href;
+        thumbnailLink.target = "_blank";
+        thumbnailLink.appendChild(thumbnail);
+
+
+        // Assemble the card
+        title.appendChild(link);
+        card.appendChild(thumbnailLink);
+        card.appendChild(title);
+        card.appendChild(published);
+        searchFeed.appendChild(card);
     });
-}
 }
 
 
