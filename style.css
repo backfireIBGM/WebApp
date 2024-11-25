@@ -49,6 +49,7 @@ h1 {
 #searchFeed .card {
     width: 28%; /* Make cards similar width as in the columns */
     margin: 1.2%; /* Even spacing between cards */
+
     display: inline-block; /* Allow cards to flow in rows */
     vertical-align: top; /* Align tops of cards */
 }
@@ -143,7 +144,6 @@ a:link,a:visited {
     background-color: #4CAF50;
     border-color: #4CAF50;
 }
-
 label {
     cursor: pointer;
     display: flex;
