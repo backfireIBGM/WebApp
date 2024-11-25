@@ -78,37 +78,30 @@ document.getElementById('searchBox').addEventListener('keyup', function () {
 
 function processFeed(feedItems, isSearch) {
     if (isSearch) {
-        console.log("search")
-        processSearchFeed(feedItems, isSearch)
+        // console.log("search")
+        document.body.classList.add('search-active');
+        processSearchFeed(feedItems, isSearch);  
+        document.getElementById("leftFeed").classList.add("hidden");
+        document.getElementById("middleFeed").classList.add("hidden");
+        document.getElementById("rightFeed").classList.add("hidden");
+        document.getElementById("searchFeed").classList.remove("hidden");
     }
     else {
-        processLeftFeed(feedItems)
-        processMiddleFeed(feedItems)
-        processRightFeed(feedItems)
+        // Clear the search feed
+        document.getElementById('searchFeed').innerHTML = '';
+        
+        // Reload all three column feeds with complete data
+        processLeftFeed(allFeedItems);  // Use allFeedItems instead of feedItems
+        processMiddleFeed(allFeedItems);
+        processRightFeed(allFeedItems);
+        
+        // Show the three feeds and hide search
+        document.getElementById("leftFeed").classList.remove("hidden");
+        document.getElementById("middleFeed").classList.remove("hidden");
+        document.getElementById("rightFeed").classList.remove("hidden");
+        document.getElementById("searchFeed").classList.add("hidden");
+        document.body.classList.remove('search-active');
     }
-
-
-
-
-
-
-
-    // const SearchBox = document.createElement('input');
-    // SearchBox.type = 'SearchBox';
-    // SearchBox.id = 'SearchBox-${uten.id}';
-
-    
-
-
-    // console.log(feedItems);
-
-
-    // if (isSearch) {
-
-    // }
-    // else {
-
-    // }
 }
 
 function processSearchFeed(feedItems, isSearch) {
@@ -190,6 +183,7 @@ function processSearchFeed(feedItems, isSearch) {
 function processLeftFeed(feedItems) {
     const leftFeedContainer = document.getElementById('leftFeed');
     leftFeedContainer.innerHTML = '';
+    
 
     let leftResults = []
 
@@ -374,8 +368,20 @@ function processRightFeed(feedItems) {
     });
 }
 
-document.getElementById('searchBox').addEventListener('change', function () {
-    processFeed(allFeedItems, this.checked);
+document.getElementById('searchBox').addEventListener('keyup', function() {
+    const searchValue = this.value.trim().toLowerCase();
+    if (searchValue === '') {  // If search is empty or cleared
+        processFeed(allFeedItems, '');  // Pass empty string to trigger the else condition
+    } else {
+        processFeed(allFeedItems, searchValue);
+    }
+});
+
+// Add this event listener for the search input's clear button (X)
+document.getElementById('searchBox').addEventListener('search', function() {
+    if (this.value === '') {  // This will trigger when X is clicked
+        processFeed(allFeedItems, '');
+    }
 });
 
 
