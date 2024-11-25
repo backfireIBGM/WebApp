@@ -1,26 +1,75 @@
 body {
-    background: black;
-
+    background: rgb(0, 0, 0);
     color: white;
+    overflow: hidden;
 }
+
+body.search-active {
+    overflow-y: scroll;
+}
+
+body:not(.search-active) {
+    overflow: hidden;
+}
+
 
 h1 {
     text-align: center;
-    font-size: 3em;
+    font-size: 5em;
+}
+
+#leftFeed, #middleFeed, #rightFeed {
+    overflow: scroll;
+    overflow-x: hidden; 
+    width: 100%;
+    height: 65vh;
+    float: left;
+}
+
+#left, #middle, #right {
+    width: 33%;
+    float: left;
+}
+
+.feed-header {
+    width: 100%;
+    text-align: center;
+}
+
+
+#searchFeed {
+    overflow-y: visible; /* Changed from auto to visible to use body scrollbar */
+    height: auto; /* Changed from 65vh to auto to expand with content */
+    width: 85%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Update the card styles for search results */
+#searchFeed .card {
+    width: 28%; /* Make cards similar width as in the columns */
+    margin: 1.2%; /* Even spacing between cards */
+    display: inline-block; /* Allow cards to flow in rows */
+    vertical-align: top; /* Align tops of cards */
+}
+
+.hidden {
+    display: none;
 }
 
 .card {
     border: 1px solid #ddd;
     border-radius: 8px;
+    overflow-x: hidden;
     padding: 20px;
     margin-bottom: 20px;
     background-color: black;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 28%;
     float: left;
     margin-left: 1%;
-    height: 375px;
+    height: 455px;
     text-align: center;
+    height: auto;
 }
 
 .card img {
@@ -32,13 +81,79 @@ h1 {
     font-size: 1.2rem;
 }
 
-.date {
-    color: white;
-    font-size: 0.9rem;
-}
-
-a:link,a:visited{
+a:link,a:visited {
     text-decoration: none;
     color: white;
 }
 
+
+
+.header-container {
+    position: relative;
+    width: 15%;
+    height: 255px;
+    overflow: hidden;
+    margin: 0 auto;        /* Center the container horizontally */
+    display: block;        /* Ensure it's a block element */
+}
+
+.header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.header-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3.5rem;
+    text-shadow: 
+        -2px -2px 0 #000,  /* Top left */
+         2px -2px 0 #000,  /* Top right */
+        -2px  2px 0 #000,  /* Bottom left */
+         2px  2px 0 #000;  /* Bottom right */
+    
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.video-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.video-checkbox:checked {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@media (min-width: 1660px) {
+    /* Your CSS rules here */
+    .card {
+        float: none;
+    }
+}
