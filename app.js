@@ -204,6 +204,7 @@ function processLeftFeed(feedItems) {
         });
     }
 
+    
 
     leftResults.forEach(item => {
         // Create card element
@@ -309,6 +310,7 @@ function processMiddleFeed(feedItems) {
 function processRightFeed(feedItems) {
     const rightFeedContainer = document.getElementById('rightFeed');
     rightFeedContainer.innerHTML = '';
+    //Headers.appendChild(feed-header);
 
     let rightResults = []
 
