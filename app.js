@@ -1,6 +1,13 @@
+const proxyUrl = 'https://corsproxy.io/';
+
 const rssUrl = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2RifWkKtDOJdsBA',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA'];
+
+
+const jsonRocketLaunches = "https://fdo.rocketlaunch.live/json/launches/next/5";
+
+
 
 async function fetchRSSWithProxy(proxyUrl, rssUrl) {
     try {
@@ -16,6 +23,25 @@ async function fetchRSSWithProxy(proxyUrl, rssUrl) {
         console.error('Error fetching RSS feed through proxy:', error);
         throw error;
     }
+}
+
+async function fetchLaunches(proxyUrl, url) {
+    try {
+        const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        console.log(data);
+
+        processLaunches(data);
+    } catch (error) {
+        console.error('Error fetching launches:', error);
+    }
+}
+
+function parseRSS(rssText) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(rssText, 'text/xml');
+    return xmlDoc;
 }
 
 async function fetchAllRSSFeeds(proxyUrl, rssUrls) {
@@ -41,12 +67,6 @@ async function fetchAllRSSFeeds(proxyUrl, rssUrls) {
     }
 }
 
-function parseRSS(rssText) {
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(rssText, 'text/xml');
-    return xmlDoc;
-}
-
 function extractFeedItems(xmlDoc) {
     const entries = xmlDoc.getElementsByTagName('entry');
     const feedItems = [];
@@ -69,6 +89,22 @@ function extractFeedItems(xmlDoc) {
     // console.log("feedItems");
     return feedItems;
 }
+
+function extractRocketLaucnes(xmlDoc) {
+    const entries = xmlRocketDoc.getElementsByTagName('entry');
+    
+
+    for (let i = 0; i < entries.length; i++) {
+        const entry = entries[i];
+        rocketFeedItems.push({
+            name: entry.querySelector('name')?.textContent,
+        });
+
+    console.log(rocketFeedItems);
+    return rocketFeedItems;
+    }
+}
+
 
 document.getElementById('searchBox').addEventListener('keyup', function () {
     processFeed(allFeedItems, this.value.toLowerCase());
@@ -178,6 +214,33 @@ function processSearchFeed(feedItems, isSearch) {
     });
 }
 
+function processLaunches(data) {
+    console.log(launchesFeed);
+    const launchesFeed = document.getElementById('launchesFeed');
+    // if (!launchesFeed || !data.result) return;
+    
+    launchesFeed.innerHTML = '';
+    const textbox = document.createElement('textarea');
+    textbox.style.width = '100%';
+    textbox.style.height = '200px';
+    textbox.style.backgroundColor = '#111';
+    textbox.style.color = 'white';
+    textbox.style.padding = '10px';
+    
+    const launchText = data.result.map(launch => 
+        `Name: ${launch.name}
+Date: ${new Date(launch.t0).toLocaleString()}
+Provider: ${launch.provider.name}
+Vehicle: ${launch.vehicle.name}
+Location: ${launch.pad.name}
+------------------------`
+    ).join('\n');
+
+    console.log(textbox);
+    
+    textbox.value = launchText;
+    launchesFeed.appendChild(textbox);
+}
 
 
 function processLeftFeed(feedItems) {
@@ -386,8 +449,14 @@ document.getElementById('searchBox').addEventListener('search', function() {
     }
 });
 
-
-const proxyUrl = 'https://corsproxy.io/';
+// Update your fetchLaunches .then() call
+fetchLaunches(proxyUrl, jsonRocketLaunches)
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 
 fetchAllRSSFeeds(proxyUrl, rssUrl)
     .then(feedItems => {
@@ -397,3 +466,4 @@ fetchAllRSSFeeds(proxyUrl, rssUrl)
     .catch(error => {
         console.error('Error:', error);
     });
+
