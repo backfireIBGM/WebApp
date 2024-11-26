@@ -47,8 +47,9 @@ h1 {
 
 /* Update the card styles for search results */
 #searchFeed .card {
-    width: 30%; /* Make cards similar width as in the columns */
-    margin: 1.5%; /* Even spacing between cards */
+    width: 28%; /* Make cards similar width as in the columns */
+    margin: 1.2%; /* Even spacing between cards */
+
     display: inline-block; /* Allow cards to flow in rows */
     vertical-align: top; /* Align tops of cards */
 }
@@ -69,7 +70,6 @@ h1 {
     margin-left: 1%;
     height: 455px;
     text-align: center;
-    min-width: 30%;
     height: auto;
 }
 
@@ -144,10 +144,16 @@ a:link,a:visited {
     background-color: #4CAF50;
     border-color: #4CAF50;
 }
-
 label {
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+@media (min-width: 1660px) {
+    /* Your CSS rules here */
+    .card {
+        float: none;
+    }
 }
