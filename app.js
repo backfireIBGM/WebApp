@@ -30,7 +30,7 @@ async function fetchLaunches(proxyUrl, url) {
         const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         processLaunches(data);
     } catch (error) {
@@ -215,8 +215,8 @@ function processSearchFeed(feedItems, isSearch) {
 }
 
 function processLaunches(data) {
-    console.log(launchesFeed);
-    const launchesFeed = document.getElementById('launchesFeed');
+    // console.log(data);
+    const Data = document.getElementById('data');
     // if (!launchesFeed || !data.result) return;
     
     launchesFeed.innerHTML = '';
@@ -369,7 +369,6 @@ function processMiddleFeed(feedItems) {
         miiddFeedContainer.appendChild(card);
     });
 }
-
 function processRightFeed(feedItems) {
     const rightFeedContainer = document.getElementById('rightFeed');
     rightFeedContainer.innerHTML = '';
@@ -450,13 +449,13 @@ document.getElementById('searchBox').addEventListener('search', function() {
 });
 
 // Update your fetchLaunches .then() call
-fetchLaunches(proxyUrl, jsonRocketLaunches)
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+// fetchLaunches(proxyUrl, jsonRocketLaunches)
+//     .then(data => {
+//         console.log(data);
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//     });
 
 fetchAllRSSFeeds(proxyUrl, rssUrl)
     .then(feedItems => {
