@@ -13,9 +13,6 @@ body:not(.search-active) {
     overflow: hidden;
 }
 
-
-
-
 h1 {
     text-align: center;
     font-size: 5em;
@@ -161,48 +158,29 @@ label {
     }
 }
 
-#launches-container {
-    width: 100%;
-    margin-bottom: 20px;
-    
-}
-
-#launchesFeed textarea {
-    height: 100%;
-}
-
 #launchesFeed {
     display: flex;
-    overflow-x: auto;
-    height: 100%;
-    padding: 20px;
-    gap: 20px;
+    height: 471.5px;
+    width: 900px;
+    padding-left: 500px;
+    padding-top: 10%;
 }
 
-.launch-card {
-    min-width: 300px;
-    background-color: #111;
-    border: 1px solid #333;
+.countdown-container {
+    position: absolute;
+    top: 245px;
+    left: 850px;
+    width: fit-content;
+}
+
+.countdown-box {
+    background-color: #1a1a1a;
     border-radius: 8px;
-    padding: 15px;
-}
-
-.launch-card h3 {
-    margin: 0 0 10px 0;
-    color: #fff;
-}
-
-.launch-info {
-    color: #ccc;
-    margin: 5px 0;
-}
-
-.launch-date {
-    color: #4CAF50;
-    font-weight: bold;
-}
-
-#launchesFeed {
-    margin: 20px;
-    width: 100%;
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 3.5rem;
 }
