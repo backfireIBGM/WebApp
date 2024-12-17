@@ -37,8 +37,9 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
         
         launchesFeed.innerHTML = '';
         const textbox = document.createElement('textarea');
+        textbox.style.resize = "none";
         textbox.style.width = '100%';
-        // textbox.style.height = '200px';
+        textbox.style.height = '100%';
         textbox.style.backgroundColor = '#111';
         textbox.style.color = 'white';
         textbox.style.padding = '10px';
@@ -76,25 +77,15 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
         //console.log("targetDates", targetDates);
         // Create separate interval for each box
         targetDates.forEach((date, index) => {
+            
             const interval = setInterval(function() {
                 let now = new Date().getTime();
                 let distance = date - now;
-    
-                // Create countdown string with T- prefix
-                let countdownString = "T-\u00A0\u00A0\u00A0" + 
-                    Math.floor(distance / (day)) + " days, " +
-                    Math.floor((distance % (day)) / (hour)) + " hours, " +
-                    Math.floor((distance % (hour)) / (minute)) + " minutes, " +
-                    Math.floor((distance % (minute)) / second) + " seconds";
-    
-                // Split the string into parts after the T- prefix
-                let parts = countdownString.split("T-")[1].split(", ");
-    
-                // Update each element while preserving the T- prefix
-                document.querySelector(`#box${index} #days`).innerHTML = "T-" + parts[0] + ", ";
-                document.querySelector(`#box${index} #hours`).innerHTML = parts[1] + ", ";
-                document.querySelector(`#box${index} #minutes`).innerHTML = parts[2] + ", ";
-                document.querySelector(`#box${index} #seconds`).innerHTML = parts[3];
+                
+                document.querySelector(`#box${index} #days`).innerHTML = Math.floor(distance / (day)) + " days, ";
+                document.querySelector(`#box${index} #hours`).innerHTML = Math.floor((distance % (day)) / (hour)) + " hours, ";
+                document.querySelector(`#box${index} #minutes`).innerHTML = Math.floor((distance % (hour)) / (minute)) + " minutes, ";
+                document.querySelector(`#box${index} #seconds`).innerHTML = Math.floor((distance % (minute)) / second) + " seconds ";
             }, second);
             
             window.countdownIntervals.push(interval);
