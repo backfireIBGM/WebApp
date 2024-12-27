@@ -47,11 +47,7 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
         textbox.style.fontSize = '150%';
         textbox.readOnly = true;
 
-        const countDownBox = document.createElement('div');
-        countDownBox.style.position = 'absolute';
-        countDownBox.style.top = '20%'; // Add units for top positioning
-        countDownBox.style.left = '55%'; // Add units for right positioning
-        countDownBox.style.textAlign = 'center';
+
         
         
         const countText = data.result.map(launch => {
@@ -66,6 +62,19 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     Location: ${launch.pad.name}
     -------------------------------------------------`;
 }).join('\n');
+            
+            textbox.value = countText;
+            launchesFeed.appendChild(textbox);
+    }
+    
+    function setDateToLaunch(data) {
+
+        const countDownBox = document.createElement('div');
+        countDownBox.style.position = 'absolute';
+        countDownBox.style.top = '20%'; // Add units for top positioning
+        countDownBox.style.left = '55%'; // Add units for right positioning
+        countDownBox.style.textAlign = 'center';
+        launchesFeed.appendChild(countDownBox);
 
         for (let i = 0; i < 5; i++) {
             // if (dateString = launchDate.getTime() === 0) {
@@ -102,13 +111,9 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     
                 countDownBox.appendChild(box);
             }
-            
-            textbox.value = countText;
-            launchesFeed.appendChild(textbox);
-            launchesFeed.appendChild(countDownBox);
-    }
-    
-    function setDateToLaunch(data) {
+
+
+        // OLD************************************************
         // Clear any existing intervals
         if (window.countdownIntervals) {
             window.countdownIntervals.forEach(interval => clearInterval(interval));
