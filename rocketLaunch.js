@@ -9,7 +9,7 @@ const day = hour * 24;
 
 fetchLaunches(proxyUrl, jsonRocketLaunches)
     .then(data => {
-        // console.log(data);
+        //console.log(data);
     })
     .catch(error => {
         console.error('Error:', error);
@@ -31,7 +31,7 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     }
 
     function processLaunches(data) {
-        // console.log(data);
+        console.log(data);
         const Data = document.getElementById('data');
         // if (!launchesFeed || !data.result) return;
         
@@ -50,55 +50,62 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
         const countDownBox = document.createElement('div');
         countDownBox.style.position = 'absolute';
         countDownBox.style.top = '20%'; // Add units for top positioning
-        countDownBox.style.left = '50%'; // Add units for right positioning
+        countDownBox.style.left = '55%'; // Add units for right positioning
         countDownBox.style.textAlign = 'center';
         
         
-        const countText = data.result.map(launch => 
-    `Name: ${launch.name}
-    Date: ${new Date(launch.t0).toLocaleString()}
+        const countText = data.result.map(launch => {
+            const launchDate = new Date(launch.t0);
+            const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
+
+
+    return `Name: ${launch.name}
+    Date: ${dateString}
     Provider: ${launch.provider.name}
     Vehicle: ${launch.vehicle.name}
     Location: ${launch.pad.name}
-    ------------------------`
-        ).join('\n');
+    -------------------------------------------------`;
+}).join('\n');
 
         for (let i = 0; i < 5; i++) {
-            const box = document.createElement('main');
-            box.className = 'countdown-box';
-            box.id = `box${i}`;
-
-            const counts = document.createElement('saan');
-            counts.id = `counts${i}`;
+            // if (dateString = launchDate.getTime() === 0) {
+            //     console.log(i);
+            // }
+                const box = document.createElement('main');
+                box.className = 'countdown-box';
+                box.id = `box${i}`;
+    
+                const counts = document.createElement('saan');
+                counts.id = `counts${i}`;
+                
+                const days = document.createElement('span');
+                days.className = 'time-unit';
+                days.id = `days${i}`;
+    
+                const hours = document.createElement('span');
+                hours.className = 'time-unit';
+                hours.id = `hours${i}`;
+    
+                const minutes = document.createElement('span');
+                minutes.className = 'time-unit';
+                minutes.id = `minutes${i}`;
             
-            const days = document.createElement('span');
-            days.className = 'time-unit';
-            days.id = `days${i}`;
-
-            const hours = document.createElement('span');
-            hours.className = 'time-unit';
-            hours.id = `hours${i}`;
-
-            const minutes = document.createElement('span');
-            minutes.className = 'time-unit';
-            minutes.id = `minutes${i}`;
-        
-            const seconds = document.createElement('span');
-            seconds.className = 'time-unit';
-            seconds.id = `seconds${i}`;
-
-            box.appendChild(counts);
-            box.appendChild(days);
-            box.appendChild(hours);
-            box.appendChild(minutes);
-            box.appendChild(seconds);
-
-            countDownBox.appendChild(box);
-        }
-        
-        textbox.value = countText;
-        launchesFeed.appendChild(textbox);
-        launchesFeed.appendChild(countDownBox);
+                const seconds = document.createElement('span');
+                seconds.className = 'time-unit';
+                seconds.id = `seconds${i}`;
+    
+                box.appendChild(counts);
+                box.appendChild(days);
+                box.appendChild(hours);
+                box.appendChild(minutes);
+                box.appendChild(seconds);
+    
+                countDownBox.appendChild(box);
+            }
+            
+            textbox.value = countText;
+            launchesFeed.appendChild(textbox);
+            launchesFeed.appendChild(countDownBox);
     }
     
     function setDateToLaunch(data) {
@@ -119,6 +126,10 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
         //console.log("targetDates", targetDates);
         // Create separate interval for each box
         targetDates.forEach((date, index) => {
+
+            // if (date != null) {
+            //     console.log(index);
+            // }
             
             const interval = setInterval(function() {
                 let now = new Date().getTime();
