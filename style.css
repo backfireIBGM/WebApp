@@ -186,13 +186,10 @@ label {
 .countdown-box {
     background-color: #1a1a1a;
     border-radius: 1%;
-    text-align: right;
     padding-right: 100%;
     display: flex;
-    gap: 3%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    margin-bottom: 3.5rem;
-    width: 100%;
+    margin-bottom: 7.5rem;
 }
 
 #MilkyWay {

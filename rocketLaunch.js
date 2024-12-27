@@ -60,7 +60,7 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     Provider: ${launch.provider.name}
     Vehicle: ${launch.vehicle.name}
     Location: ${launch.pad.name}
-    -------------------------------------------------`;
+    -----------------------------------`;
 }).join('\n');
             
             textbox.value = countText;
@@ -72,8 +72,9 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
         const countDownBox = document.createElement('div');
         countDownBox.style.position = 'absolute';
         countDownBox.style.top = '20%'; // Add units for top positioning
-        countDownBox.style.left = '55%'; // Add units for right positioning
+        countDownBox.style.left = '57%'; // Add units for right positioning
         countDownBox.style.textAlign = 'center';
+        countDownBox.style.fontSize = '200%';
         launchesFeed.appendChild(countDownBox);
 
         for (let i = 0; i < 5; i++) {
@@ -111,9 +112,6 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     
                 countDownBox.appendChild(box);
             }
-
-
-        // OLD************************************************
         // Clear any existing intervals
         if (window.countdownIntervals) {
             window.countdownIntervals.forEach(interval => clearInterval(interval));
@@ -139,43 +137,44 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
             const interval = setInterval(function() {
                 let now = new Date().getTime();
                 let distance = date - now;
-
-
-                let hourString = Math.floor((distance % (day)) / (hour)) + ":";
-                let minuteString = Math.floor((distance % (hour)) / (minute)) + ":";
-                let secondString = Math.floor((distance % (minute)) / second);
-
-                function pad(num, size) {
-                    num = num.toString();
-                    while (num.length < size) num = "0" + num;
-                    return num;
-                }
-
-                hourString = pad(hourString, 3);
-                minuteString = pad(minuteString, 3);
-                secondString = pad(secondString, 2);
-
-
-                // console.log(hourString);
-                // console.log(minuteString);
-                // console.log(secondString);
-
-
-                if (Math.floor(distance / (day)) > 0)
-                {
-                    document.querySelector(`#box${index} #counts${index}`).innerHTML = null;
-                    document.querySelector(`#box${index} #days${index}`).innerHTML = Math.floor(distance / (day)) + ":";
-                }
-                else
-                {
-                    document.querySelector(`#box${index} #counts${index}`).innerHTML = "T-";
-                }
-
-                document.querySelector(`#box${index} #hours${index}`).innerHTML = hourString;
-                document.querySelector(`#box${index} #minutes${index}`).innerHTML = minuteString;
-                document.querySelector(`#box${index} #seconds${index}`).innerHTML = secondString;
-            }, second);
-            
-            window.countdownIntervals.push(interval);
-        });
-    }
+                //console.log(date - now);
+                    let hourString = Math.floor((distance % (day)) / (hour)) + ":";
+                    let minuteString = Math.floor((distance % (hour)) / (minute)) + ":";
+                    let secondString = Math.floor((distance % (minute)) / second);
+    
+                    function pad(num, size) {
+                        num = num.toString();
+                        while (num.length < size) num = "0" + num;
+                        return num;
+                    }
+    
+                    hourString = pad(hourString, 3);
+                    minuteString = pad(minuteString, 3);
+                    secondString = pad(secondString, 2);
+    
+    
+                    // console.log(hourString);
+                    // console.log(minuteString);
+                    // console.log(secondString);
+    
+    
+                    if ((date - now) > 0)
+                    {
+                        if (Math.floor(distance / (day)) > 0)
+                            {
+                                document.querySelector(`#box${index} #counts${index}`).innerHTML = null;
+                                document.querySelector(`#box${index} #days${index}`).innerHTML = Math.floor(distance / (day)) + ":";
+                            }
+                            else
+                            {
+                                document.querySelector(`#box${index} #counts${index}`).innerHTML = "T-";
+                            }
+                            document.querySelector(`#box${index} #hours${index}`).innerHTML = hourString;
+                            document.querySelector(`#box${index} #minutes${index}`).innerHTML = minuteString;
+                            document.querySelector(`#box${index} #seconds${index}`).innerHTML = secondString;
+                    }
+                }, second);
+                
+                window.countdownIntervals.push(interval);
+    });
+}
