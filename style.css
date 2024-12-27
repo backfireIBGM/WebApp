@@ -176,30 +176,23 @@ label {
 }
 
 #launchesFeed {
-    display: flex;
-    height: 235%;
-    width: 38%;
-    padding: 11% 31%;
-}
-
-.countdown-container {
-    position: absolute;
-    top: 245px;
-    left: 850px;
-    width: fit-content;
-    padding-left: 3%;
+    position: relative;
+    align-items: center;
+    width: 43%;
+    height: 365%;
+    padding: 10% 31%;
 }
 
 .countdown-box {
     background-color: #1a1a1a;
-    border-radius: 8px;
-    text-align: center;
-    padding: 10px;
+    border-radius: 1%;
+    text-align: right;
+    padding-right: 100%;
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    gap: 3%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 3.5rem;
+    width: 100%;
 }
 
 #MilkyWay {
