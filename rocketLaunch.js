@@ -31,7 +31,7 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     }
 
     function processLaunches(data) {
-        console.log(data);
+        // console.log(data);
         const Data = document.getElementById('data');
         // if (!launchesFeed || !data.result) return;
         
@@ -120,7 +120,7 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     
         // Set up array of target dates for each box
         const targetDates = data.result.map((launch, index) => {
-            console.log(data.result[index].t0);
+            // console.log(data.result[index].t0);
             // console.log(data.result[index].name);
             // console.log(launch, index)
             return new Date(data.result[index].t0);
@@ -128,15 +128,31 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
 
         //console.log("targetDates", targetDates);
         // Create separate interval for each box
-        targetDates.forEach((date, index) => {
+
+        let testDates = Array(5).fill().map((_, index) => {
+            const date = new Date();
+            date.setDate(date.getDate() + index);  // Add days
+            //date.setHours(date.getHours() - 14);  // Subtract 14 hours
+           //date.setMinutes(date.getMinutes() - 49);  // Subtract 30 minutes
+            date.setSeconds(date.getSeconds() + 5);  // Add 5 seconds
             
+            return date.toLocaleString('en-US')
+        });
+        
+        
+        
+        // for real launches use targetDates
+        // & for testing use testDates
+        targetDates.forEach((date, index) => {
             const interval = setInterval(function() {
                 let now = new Date().getTime();
-                let distance = date - now;
-                //console.log(date - now);
-                    let hourString = Math.floor((distance % (day)) / (hour)) + ":";
-                    let minuteString = Math.floor((distance % (hour)) / (minute)) + ":";
-                    let secondString = Math.floor((distance % (minute)) / second);
+                let distance = new Date(date).getTime() - now;
+
+                // testDates.forEach(date => console.log(date));
+                
+                let hourString = Math.floor((distance % (day)) / (hour)) + ":";
+                let minuteString = Math.floor((distance % (hour)) / (minute)) + ":";
+                let secondString = Math.floor((distance % (minute)) / second);
     
                     function pad(num, size) {
                         num = num.toString();
@@ -144,7 +160,14 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
                         return num;
                     }
     
-                    hourString = pad(hourString, 3);
+                    if (Math.floor(distance / (day)) > 0) {
+                        hourString = pad(hourString, 3);
+                    }
+                    else {
+                        hourString = pad(hourString, 2);
+                    }
+
+    
                     minuteString = pad(minuteString, 3);
                     secondString = pad(secondString, 2);
     
@@ -154,8 +177,7 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
                     // console.log(secondString);
     
     
-                    if ((date - now) > 0)
-                    {
+                    if (distance > 0) {
                         if (Math.floor(distance / (day)) > 0)
                             {
                                 document.querySelector(`#box${index} #counts${index}`).innerHTML = null;
@@ -164,11 +186,12 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
                             else
                             {
                                 document.querySelector(`#box${index} #counts${index}`).innerHTML = "T-";
+                                document.querySelector(`#box${index} #days${index}`).innerHTML = null;
                             }
                             document.querySelector(`#box${index} #hours${index}`).innerHTML = hourString;
                             document.querySelector(`#box${index} #minutes${index}`).innerHTML = minuteString;
                             document.querySelector(`#box${index} #seconds${index}`).innerHTML = secondString;
-                    }
+                  }
                 }, second);
                 
                 window.countdownIntervals.push(interval);

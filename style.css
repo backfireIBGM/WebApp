@@ -184,7 +184,9 @@ label {
 }
 
 .countdown-box {
-    background-color: #1a1a1a;
+    color: #ffffff;
+    background-color: #393939;
+    font: monospace;
     border-radius: 1%;
     padding-right: 100%;
     display: flex;
