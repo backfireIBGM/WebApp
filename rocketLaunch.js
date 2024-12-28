@@ -129,10 +129,6 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
         //console.log("targetDates", targetDates);
         // Create separate interval for each box
         targetDates.forEach((date, index) => {
-
-            // if (date != null) {
-            //     console.log(index);
-            // }
             
             const interval = setInterval(function() {
                 let now = new Date().getTime();
