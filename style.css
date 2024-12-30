@@ -186,7 +186,7 @@ label {
 .countdown-box {
     color: #ffffff;
     background-color: #393939;
-    font: monospace;
+    font-family: 'digits';
     border-radius: 1%;
     padding-right: 100%;
     display: flex;
@@ -206,4 +206,9 @@ label {
     padding: 7.42% 60%;
     scale: 60%;
     z-index: -2;
+}
+
+@font-face {
+    font-family: 'digits';
+    src: url('./seven-segment/Seven Segment.ttf') format('truetype');
 }
