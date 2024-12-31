@@ -201,13 +201,6 @@ label {
     z-index: -2;
 }
 
-#Falcon9 {
-    position: absolute;
-    padding: 7.42% 60%;
-    scale: 60%;
-    z-index: -2;
-}
-
 @font-face {
     font-family: 'digits';
     src: url('./seven-segment/Seven Segment.ttf') format('truetype');

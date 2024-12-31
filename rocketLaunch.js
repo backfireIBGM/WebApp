@@ -65,6 +65,8 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
             
             textbox.value = countText;
             launchesFeed.appendChild(textbox);
+
+            showMoreInfo(data);
     }
     
     function setDateToLaunch(data) {
@@ -197,3 +199,169 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
                 window.countdownIntervals.push(interval);
     });
 }
+
+function showMoreInfo(data) {
+    const targetRockets = [
+        "Falcon 9",
+        "New Glenn", 
+        "Super Heavy / Starship Prototype",
+        "Eris",
+        "GSLV-II"
+    ];
+    const moreInfoDiv = document.getElementById('moreInfo');
+    
+    data.result.forEach((launch, index) => {
+        console.log(launch.vehicle.name);
+
+        if (targetRockets.includes(launch.vehicle.name)) {
+        
+                const div = document.createElement('div');
+                div.id = `Info${index}`;
+
+                const img = document.createElement('img');
+                img.id = `Img${index}`;
+
+                switch (launch.vehicle.name) {
+                    case "Falcon 9":
+                        handleFalcon9(img, index);
+                        break;
+                    case "New Glenn":
+                        handleNewGlenn(img, index);
+                        break;
+                    case "Super Heavy / Starship Prototype":
+                        handleStarship(img, index);
+                        break;
+                    case "Eris":
+                        handleEris(img, index);
+                        break;
+                    case "GSLV-II":
+                        handleGSLV2(img, index);
+                        break;
+                    default:
+                        console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
+                }
+                
+                img.style.position = "absolute";
+                div.appendChild(img);
+                moreInfoDiv.appendChild(div);
+            }
+
+
+            
+        });
+    }
+
+    function handleFalcon9(img, index) {
+        img.src = 'Falcon9.jpg';
+        img.style.transform = "scale(0.6)";
+        img.style.paddingLeft = "75%";
+
+        // index = 0;
+
+        switch (index) {
+            case 0:
+                img.style.paddingTop = "9.4%";
+                break;
+            case 1:
+                img.style.paddingTop = "18%";
+                break;
+            case 2:
+                img.style.paddingTop = "27%";
+                break;
+            case 3:
+                img.style.paddingTop = "36%";
+                break;
+            default:
+                img.style.paddingTop = "45%";
+                break;
+        }
+    }
+    function handleStarship(img, index) {
+        img.src = 'StarShip.jpg';
+        // index = 4;
+
+        switch (index) {
+            case 0:
+                img.style.transform = "scale(0.6) translate(1015%, 90%)";
+                break;
+            case 1:
+                img.style.transform = "scale(0.6) translate(1015%, 170%)";
+                break;
+            case 2:
+                img.style.transform = "scale(0.6) translate(1015%, 260%)";
+                break;
+            case 3:
+                img.style.transform = "scale(0.6) translate(1015%, 345%)";
+                break;
+            default:
+                img.style.transform = "scale(0.6) translate(1015%, 435%)";
+                break;
+        }
+    }
+    function handleNewGlenn(img, index) {
+        img.src = 'New-Glenn.jpg';
+
+        // index = 4;
+
+        switch (index) {
+            case 0:
+                img.style.transform = "scale(0.1) translate(150%, -320%)";
+                break;
+            case 1:
+                img.style.transform = "scale(0.1) translate(150%, -235%)";
+                break;
+            case 2:
+                img.style.transform = "scale(0.1) translate(150%, -140%)";
+                break;
+            case 3:
+                img.style.transform = "scale(0.1) translate(150%, -40%)";
+                break;
+            default:
+                img.style.transform = "scale(0.1) translate(150%, 50%)";
+                break;
+        }
+    }
+    function handleEris(img, index) {
+        img.src = 'Eris.jpg';
+        // index = 4;
+
+        switch (index) {
+            case 0:
+                img.style.transform = "scale(0.6) translate(1070%, 82%)";
+                break;
+            case 1:
+                img.style.transform = "scale(0.6) translate(1070%, 160%)";
+                break;
+            case 2:
+                img.style.transform = "scale(0.6) translate(1070%, 240%)";
+                break;
+            case 3:
+                img.style.transform = "scale(0.6) translate(1070%, 325%)";
+                break;
+            default:
+                img.style.transform = "scale(0.6) translate(1070%, 415%)";
+                break;
+        }
+    }
+    function handleGSLV2(img, index) {
+        img.src = 'GSLV_II.jpg';
+        // index = 4;
+
+        switch (index) {
+            case 0:
+                img.style.transform = "scale(0.4) translate(1830%, 75%)";
+                break;
+            case 1:
+                img.style.transform = "scale(0.4) translate(1830%, 180%)";
+                break;
+            case 2:
+                img.style.transform = "scale(0.4) translate(1830%, 290%)";
+                break;
+            case 3:
+                img.style.transform = "scale(0.4) translate(1830%, 395%)";
+                break;
+            default:
+                img.style.transform = "scale(0.4) translate(1830%, 505%)";
+                break;
+        }
+    }
