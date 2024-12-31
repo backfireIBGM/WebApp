@@ -61,13 +61,19 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     Vehicle: ${launch.vehicle.name}
     Location: ${launch.pad.name}
     -----------------------------------`;
-}).join('\n');
-            
-            textbox.value = countText;
-            launchesFeed.appendChild(textbox);
+}).join('\n');            
 
-            showMoreInfo(data);
-    }
+    textbox.value = countText;
+    launchesFeed.appendChild(textbox);
+
+    textbox.onmouseover = () => {
+        showMoreInfo(data, true);
+    };
+    
+    textbox.onmouseout = () => {
+        showMoreInfo(data, false);
+    };
+}
     
     function setDateToLaunch(data) {
 
@@ -200,7 +206,7 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     });
 }
 
-function showMoreInfo(data) {
+function showMoreInfo(data, isHovered) {
     const targetRockets = [
         "Falcon 9",
         "New Glenn", 
@@ -211,7 +217,8 @@ function showMoreInfo(data) {
     const moreInfoDiv = document.getElementById('moreInfo');
     
     data.result.forEach((launch, index) => {
-        console.log(launch.vehicle.name);
+        // console.log(launch.vehicle.name);
+        console.log(isHovered);
 
         if (targetRockets.includes(launch.vehicle.name)) {
         
@@ -240,14 +247,12 @@ function showMoreInfo(data) {
                     default:
                         console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
                 }
-                
+
                 img.style.position = "absolute";
+
                 div.appendChild(img);
                 moreInfoDiv.appendChild(div);
             }
-
-
-            
         });
     }
 
