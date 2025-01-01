@@ -220,41 +220,52 @@ function showMoreInfo(data, isHovered) {
         // console.log(launch.vehicle.name);
         console.log(isHovered);
 
-        if (targetRockets.includes(launch.vehicle.name)) {
-        
-                const div = document.createElement('div');
-                div.id = `Info${index}`;
-
-                const img = document.createElement('img');
-                img.id = `Img${index}`;
-
-                switch (launch.vehicle.name) {
-                    case "Falcon 9":
-                        handleFalcon9(img, index);
-                        break;
-                    case "New Glenn":
-                        handleNewGlenn(img, index);
-                        break;
-                    case "Super Heavy / Starship Prototype":
-                        handleStarship(img, index);
-                        break;
-                    case "Eris":
-                        handleEris(img, index);
-                        break;
-                    case "GSLV-II":
-                        handleGSLV2(img, index);
-                        break;
-                    default:
-                        console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
-                }
-
-                img.style.position = "absolute";
-
-                div.appendChild(img);
-                moreInfoDiv.appendChild(div);
+        if (isHovered) {
+            // Only create elements if they don't exist and we're showing them
+            div = document.createElement('div');
+            div.id = `Info${index}`;
+            
+            img = document.createElement('img');
+            img.id = `Img${index}`;
+            
+            switch (launch.vehicle.name) {
+                case "Falcon 9":
+                    handleFalcon9(img, index);
+                    break;
+                case "New Glenn":
+                    handleNewGlenn(img, index);
+                    break;
+                case "Super Heavy / Starship Prototype":
+                    handleStarship(img, index);
+                    break;
+                case "Eris":
+                    handleEris(img, index);
+                    break;
+                case "GSLV-II":
+                    handleGSLV2(img, index);
+                    break;
+                default:
+                    console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
             }
-        });
-    }
+
+            
+            img.style.position = "absolute";
+            img.style.visibility = "hidden";
+            
+            div.appendChild(img);
+            moreInfoDiv.appendChild(div);
+        }
+    });
+
+    data.result.forEach((launch, index) => {
+        if (targetRockets.includes(launch.vehicle.name)) {
+            const existingImg = document.getElementById(`Img${index}`);
+            if (existingImg) {
+                existingImg.style.visibility = isHovered ? "visible" : "hidden";
+            }
+        }
+    });
+}
 
     function handleFalcon9(img, index) {
         img.src = 'Falcon9.jpg';
