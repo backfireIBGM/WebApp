@@ -232,6 +232,28 @@ label {
     margin: 8% auto; /* Equal margin top and bottom */
 }
 
+.grid-item {
+    background-color: rgb(146, 53, 53);
+    padding: 12px;
+    color: white;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.grid-item h3 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.grid-item p {
+    margin: 0;
+    line-height: 1.1;
+    font-size: 1.3em;
+}
+
 @font-face {
     font-family: 'digits';
     src: url('./seven-segment/Seven Segment.ttf') format('truetype');
