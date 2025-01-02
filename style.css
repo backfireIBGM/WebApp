@@ -1,9 +1,31 @@
-body {
+header {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.index-page {
     background: rgb(0, 0, 0);
     color: white;
     overflow: hidden;
     height: 20vh;
     margin: 0;
+}
+
+.rocket-launches-page {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-image: url('Milky_Way_illustration-1.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    color: white;
 }
 
 body.search-active {
@@ -13,7 +35,6 @@ body.search-active {
 body:not(.search-active) {
     overflow: hidden;
 }
-
 
 .banner-image {
     position: absolute;
@@ -46,12 +67,12 @@ h1 {
 }
 
 header {
-    background-color: #8793eb58;  /* Light blue */
-    height: 6.7%;
-    width: 100%;
     position: fixed;
     top: 0;
-    z-index: 1;
+    width: 100%;
+    background-color: #22ff00;
+    padding: 10px;
+    text-align: right;
 }
 
 #searchFeed {
@@ -113,6 +134,7 @@ a:link,a:visited {
     height: 100%;
     color: #000;
 }
+
 .header-container {
     position: relative;
     width: 15%;
@@ -161,6 +183,7 @@ a:link,a:visited {
     background-color: #4CAF50;
     border-color: #4CAF50;
 }
+
 label {
     cursor: pointer;
     display: flex;
@@ -203,27 +226,10 @@ label {
 
 .launches-grid {
     display: grid;
-    grid-template-columns: 20%;
-    gap: 10px;
-    background-color: #4CAF50;
-    padding-top: 10%;
-    grid-template-rows: auto;
-}
-
-.grid-item {
-    padding: 15px;
-    background-color: rgb(146, 53, 53);
-    border-radius: 4px;
-    margin-bottom: 10px;
-}
-
-.grid-item h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-}
-
-.grid-item p {
-    margin: 5px 0;
+    grid-template-rows: repeat(5, 16vh); /* Increased height to use more space */
+    font-size: 1.2em;
+    gap: 5px;
+    margin: 8% auto; /* Equal margin top and bottom */
 }
 
 @font-face {
