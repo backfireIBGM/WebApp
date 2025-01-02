@@ -201,6 +201,15 @@ label {
     z-index: -2;
 }
 
+.launches-grid {
+    display: grid;
+    grid-template-columns: 20%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    gap: 10px;
+    background-color: #4CAF50;
+    padding-top: 30%;
+}
+
 @font-face {
     font-family: 'digits';
     src: url('./seven-segment/Seven Segment.ttf') format('truetype');

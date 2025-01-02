@@ -30,49 +30,49 @@ async function fetchLaunches(proxyUrl, url) {
         }
 }
 
-function processLaunches(data) {
-        // console.log(data);
-        const Data = document.getElementById('data');
-        // if (!launchesFeed || !data.result) return;
+// function processLaunches(data) {
+//         // console.log(data);
+//         const Data = document.getElementById('data');
+//         // if (!launchesFeed || !data.result) return;
         
-        // launchesFeed.innerHTML = '';
-        const textbox = document.createElement('textarea');
-        textbox.style.resize = "none";
-        textbox.style.width = '100%';
-        textbox.style.height = '90%';
-        textbox.style.backgroundColor = '#111';
-        textbox.style.color = 'white';
-        textbox.style.zIndex = 0;
-        textbox.style.fontSize = '150%';
-        textbox.readOnly = true;
+//         // launchesFeed.innerHTML = '';
+//         const textbox = document.createElement('textarea');
+//         textbox.style.resize = "none";
+//         textbox.style.width = '100%';
+//         textbox.style.height = '90%';
+//         textbox.style.backgroundColor = '#111';
+//         textbox.style.color = 'white';
+//         textbox.style.zIndex = 0;
+//         textbox.style.fontSize = '150%';
+//         textbox.readOnly = true;
 
 
         
         
-        const countText = data.result.map(launch => {
-            const launchDate = new Date(launch.t0);
-            const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
+//     const countText = data.result.map(launch => {
+//         const launchDate = new Date(launch.t0);
+//         const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
 
 
-    return `Name: ${launch.name}
-    Date: ${dateString}
-    Provider: ${launch.provider.name}
-    Vehicle: ${launch.vehicle.name}
-    Location: ${launch.pad.name}
-    -----------------------------------`;
-}).join('\n');            
+//     return `Name: ${launch.name}
+//     Date: ${dateString}
+//     Provider: ${launch.provider.name}
+//     Vehicle: ${launch.vehicle.name}
+//     Location: ${launch.pad.name}
+//     -----------------------------------`;
+// }).join('\n');            
 
-    textbox.value = countText;
-    launchesFeed.appendChild(textbox);
+//     textbox.value = countText;
+//     launchesFeed.appendChild(textbox);
 
-    textbox.onmouseover = () => {
-        showMoreInfo(data, true);
-    };
+//     textbox.onmouseover = () => {
+//         showMoreInfo(data, true);
+//     };
     
-    textbox.onmouseout = () => {
-        showMoreInfo(data, false);
-    };
-}
+//     textbox.onmouseout = () => {
+//         showMoreInfo(data, false);
+//     };
+// }
     
 function setDateToLaunch(data) {
 
@@ -390,3 +390,29 @@ function handleGSLV2(img, index) {
                 break;
         }
 }
+
+const launches = [
+    { name: "Launch 1", date: "2025-01-15" },
+    { name: "Launch 2", date: "2025-02-01" },
+    { name: "Launch 3", date: "2025-02-15" }
+];
+
+
+function processLaunches2(data) {
+    const Data = document.getElementById('data');
+
+    // Changed to getElementsByClassName and using [0] since it returns a collection
+    const container = document.getElementsByClassName('launches-grid')[0];
+    
+    launches.forEach(launch => {
+        const gridItem = document.createElement('div');
+        gridItem.className = 'grid-item';
+        gridItem.innerHTML = `
+            <h3>${launch.name}</h3>
+            <p>${launch.date}</p>
+        `;
+        container.appendChild(gridItem);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', processLaunches2);
