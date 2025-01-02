@@ -10,12 +10,12 @@ const day = hour * 24;
 fetchLaunches(proxyUrl, jsonRocketLaunches)
     .then(data => {
         //console.log(data);
-    })
+})
     .catch(error => {
         console.error('Error:', error);
-    });
+});
 
-    async function fetchLaunches(proxyUrl, url) {
+async function fetchLaunches(proxyUrl, url) {
         try {
             // console.log("test");
             const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
@@ -28,9 +28,9 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
         } catch (error) {
             console.error('Error fetching launches:', error);
         }
-    }
+}
 
-    function processLaunches(data) {
+function processLaunches(data) {
         // console.log(data);
         const Data = document.getElementById('data');
         // if (!launchesFeed || !data.result) return;
@@ -39,10 +39,9 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
         const textbox = document.createElement('textarea');
         textbox.style.resize = "none";
         textbox.style.width = '100%';
-        textbox.style.height = '100%';
+        textbox.style.height = '90%';
         textbox.style.backgroundColor = '#111';
         textbox.style.color = 'white';
-        textbox.style.padding = '10px';
         textbox.style.zIndex = 0;
         textbox.style.fontSize = '150%';
         textbox.readOnly = true;
@@ -75,78 +74,77 @@ fetchLaunches(proxyUrl, jsonRocketLaunches)
     };
 }
     
-    function setDateToLaunch(data) {
+function setDateToLaunch(data) {
 
-        const countDownBox = document.createElement('div');
-        countDownBox.style.position = 'absolute';
-        countDownBox.style.top = '20%'; // Add units for top positioning
-        countDownBox.style.left = '57%'; // Add units for right positioning
-        countDownBox.style.textAlign = 'center';
-        countDownBox.style.fontSize = '200%';
-        launchesFeed.appendChild(countDownBox);
+    const countDownBox = document.createElement('div');
+    countDownBox.style.position = 'absolute';
+    countDownBox.style.top = '20%';
+    countDownBox.style.left = '59.0%';
+    countDownBox.style.textAlign = 'center';
+    countDownBox.style.fontSize = '200%';
+    launchesFeed.appendChild(countDownBox);
 
-        for (let i = 0; i < 5; i++) {
-            // if (dateString = launchDate.getTime() === 0) {
-            //     console.log(i);
-            // }
-                const box = document.createElement('main');
-                box.className = 'countdown-box';
-                box.id = `box${i}`;
-    
-                const counts = document.createElement('saan');
-                counts.id = `counts${i}`;
-                
-                const days = document.createElement('span');
-                days.className = 'time-unit';
-                days.id = `days${i}`;
-    
-                const hours = document.createElement('span');
-                hours.className = 'time-unit';
-                hours.id = `hours${i}`;
-    
-                const minutes = document.createElement('span');
-                minutes.className = 'time-unit';
-                minutes.id = `minutes${i}`;
+    for (let i = 0; i < 5; i++) {
+        // if (dateString = launchDate.getTime() === 0) {
+        //     console.log(i);
+        // }
+            const box = document.createElement('main');
+            box.className = 'countdown-box';
+            box.id = `box${i}`;
+
+            const counts = document.createElement('saan');
+            counts.id = `counts${i}`;
             
-                const seconds = document.createElement('span');
-                seconds.className = 'time-unit';
-                seconds.id = `seconds${i}`;
-    
-                box.appendChild(counts);
-                box.appendChild(days);
-                box.appendChild(hours);
-                box.appendChild(minutes);
-                box.appendChild(seconds);
-    
-                countDownBox.appendChild(box);
-            }
-        // Clear any existing intervals
-        if (window.countdownIntervals) {
-            window.countdownIntervals.forEach(interval => clearInterval(interval));
-        }
-        window.countdownIntervals = [];
-    
-        // Set up array of target dates for each box
-        const targetDates = data.result.map((launch, index) => {
-            // console.log(data.result[index].t0);
-            // console.log(data.result[index].name);
-            // console.log(launch, index)
-            return new Date(data.result[index].t0);
-        });
+            const days = document.createElement('span');
+            days.className = 'time-unit';
+            days.id = `days${i}`;
 
-        //console.log("targetDates", targetDates);
-        // Create separate interval for each box
+            const hours = document.createElement('span');
+            hours.className = 'time-unit';
+            hours.id = `hours${i}`;
 
-        let testDates = Array(5).fill().map((_, index) => {
-            const date = new Date();
-            date.setDate(date.getDate() + index);  // Add days
-            //date.setHours(date.getHours() - 14);  // Subtract 14 hours
-           //date.setMinutes(date.getMinutes() - 49);  // Subtract 30 minutes
-            date.setSeconds(date.getSeconds() + 5);  // Add 5 seconds
-            
-            return date.toLocaleString('en-US')
-        });
+            const minutes = document.createElement('span');
+            minutes.className = 'time-unit';
+            minutes.id = `minutes${i}`;
         
+            const seconds = document.createElement('span');
+            seconds.className = 'time-unit';
+            seconds.id = `seconds${i}`;
+
+            box.appendChild(counts);
+            box.appendChild(days);
+            box.appendChild(hours);
+            box.appendChild(minutes);
+            box.appendChild(seconds);
+
+            countDownBox.appendChild(box);
+        }
+    // Clear any existing intervals
+    if (window.countdownIntervals) {
+        window.countdownIntervals.forEach(interval => clearInterval(interval));
+    }
+    window.countdownIntervals = [];
+
+    // Set up array of target dates for each box
+    const targetDates = data.result.map((launch, index) => {
+        // console.log(data.result[index].t0);
+        // console.log(data.result[index].name);
+        // console.log(launch, index)
+        return new Date(data.result[index].t0);
+    });
+
+    //console.log("targetDates", targetDates);
+    // Create separate interval for each box
+
+    let testDates = Array(5).fill().map((_, index) => {
+        const date = new Date();
+        date.setDate(date.getDate() + index);  // Add days
+        //date.setHours(date.getHours() - 14);  // Subtract 14 hours
+        //date.setMinutes(date.getMinutes() - 49);  // Subtract 30 minutes
+        date.setSeconds(date.getSeconds() + 5);  // Add 5 seconds
+        
+        return date.toLocaleString('en-US')
+    });
         
         
         // for real launches use targetDates
@@ -267,8 +265,8 @@ function showMoreInfo(data, isHovered) {
     });
 }
 
-    function handleFalcon9(img, index) {
-        img.src = 'Falcon9.jpg';
+function handleFalcon9(img, index) {
+        // img.src = 'Falcon9.jpg';
         img.style.transform = "scale(0.6)";
         img.style.paddingLeft = "75%";
 
@@ -291,14 +289,17 @@ function showMoreInfo(data, isHovered) {
                 img.style.paddingTop = "45%";
                 break;
         }
-    }
-    function handleStarship(img, index) {
+}
+function handleStarship(img, index) {
         img.src = 'StarShip.jpg';
-        // index = 4;
+        img.style.transform = "scale(0.45)";
+        img.style.paddingLeft = "81%";
+
+        index = 0;
 
         switch (index) {
             case 0:
-                img.style.transform = "scale(0.6) translate(1015%, 90%)";
+                img.style.paddingTop = "8.8%";
                 break;
             case 1:
                 img.style.transform = "scale(0.6) translate(1015%, 170%)";
@@ -313,9 +314,11 @@ function showMoreInfo(data, isHovered) {
                 img.style.transform = "scale(0.6) translate(1015%, 435%)";
                 break;
         }
-    }
-    function handleNewGlenn(img, index) {
-        img.src = 'New-Glenn.jpg';
+}
+function handleNewGlenn(img, index) {
+        // img.src = 'New-Glenn.jpg';
+        img.style.transform = "scale(0.6)";
+        img.style.paddingLeft = "75%";
 
         // index = 4;
 
@@ -336,9 +339,12 @@ function showMoreInfo(data, isHovered) {
                 img.style.transform = "scale(0.1) translate(150%, 50%)";
                 break;
         }
-    }
-    function handleEris(img, index) {
-        img.src = 'Eris.jpg';
+}
+function handleEris(img, index) {
+        // img.src = 'Eris.jpg';
+        img.style.transform = "scale(0.6)";
+        img.style.paddingLeft = "75%";
+
         // index = 4;
 
         switch (index) {
@@ -358,9 +364,12 @@ function showMoreInfo(data, isHovered) {
                 img.style.transform = "scale(0.6) translate(1070%, 415%)";
                 break;
         }
-    }
-    function handleGSLV2(img, index) {
-        img.src = 'GSLV_II.jpg';
+}
+function handleGSLV2(img, index) {
+        // img.src = 'GSLV_II.jpg';
+        img.style.transform = "scale(0.6)";
+        img.style.paddingLeft = "75%";
+
         // index = 4;
 
         switch (index) {
@@ -380,4 +389,4 @@ function showMoreInfo(data, isHovered) {
                 img.style.transform = "scale(0.4) translate(1830%, 505%)";
                 break;
         }
-    }
+}
