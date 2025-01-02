@@ -291,59 +291,59 @@ function handleFalcon9(img, index) {
         }
 }
 function handleStarship(img, index) {
-        img.src = 'StarShip.jpg';
+        // img.src = 'StarShip.jpg';
         img.style.transform = "scale(0.45)";
         img.style.paddingLeft = "81%";
 
-        index = 0;
+        // index = 4;
 
         switch (index) {
             case 0:
                 img.style.paddingTop = "8.8%";
                 break;
             case 1:
-                img.style.transform = "scale(0.6) translate(1015%, 170%)";
+                img.style.paddingTop = "18.4%";
                 break;
             case 2:
-                img.style.transform = "scale(0.6) translate(1015%, 260%)";
+                img.style.paddingTop = "28%";
                 break;
             case 3:
-                img.style.transform = "scale(0.6) translate(1015%, 345%)";
+                img.style.paddingTop = "37.6%";
                 break;
             default:
-                img.style.transform = "scale(0.6) translate(1015%, 435%)";
+                img.style.paddingTop = "48.2%";
                 break;
         }
 }
 function handleNewGlenn(img, index) {
-        // img.src = 'New-Glenn.jpg';
-        img.style.transform = "scale(0.6)";
-        img.style.paddingLeft = "75%";
+        img.src = 'New-Glenn.jpg';
+        img.style.transform = "scale(0.1)";
+        img.style.paddingLeft = "25%";
 
-        // index = 4;
+        index = 0;
 
         switch (index) {
             case 0:
-                img.style.transform = "scale(0.1) translate(150%, -320%)";
+                img.style.paddingTop = "-110%";
                 break;
             case 1:
-                img.style.transform = "scale(0.1) translate(150%, -235%)";
+                img.style.paddingTop = "8.8%";
                 break;
             case 2:
-                img.style.transform = "scale(0.1) translate(150%, -140%)";
+                img.style.paddingTop = "8.8%";
                 break;
             case 3:
-                img.style.transform = "scale(0.1) translate(150%, -40%)";
+                img.style.paddingTop = "8.8%";
                 break;
             default:
-                img.style.transform = "scale(0.1) translate(150%, 50%)";
+                img.style.paddingTop = "8.8%";
                 break;
         }
 }
 function handleEris(img, index) {
         // img.src = 'Eris.jpg';
         img.style.transform = "scale(0.6)";
-        img.style.paddingLeft = "75%";
+        img.style.paddingLeft = "1070%";
 
         // index = 4;
 
@@ -358,10 +358,10 @@ function handleEris(img, index) {
                 img.style.transform = "scale(0.6) translate(1070%, 240%)";
                 break;
             case 3:
-                img.style.transform = "scale(0.6) translate(1070%, 325%)";
+                img.style.paddingTop = "8.8%";
                 break;
             default:
-                img.style.transform = "scale(0.6) translate(1070%, 415%)";
+                img.style.paddingTop = "8.8%";
                 break;
         }
 }
