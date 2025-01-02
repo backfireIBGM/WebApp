@@ -214,34 +214,6 @@ function processSearchFeed(feedItems, isSearch) {
     });
 }
 
-function processLaunches(data) {
-    // console.log(data);
-    const Data = document.getElementById('data');
-    // if (!launchesFeed || !data.result) return;
-    
-    launchesFeed.innerHTML = '';
-    const textbox = document.createElement('textarea');
-    textbox.style.width = '100%';
-    textbox.style.height = '200px';
-    textbox.style.backgroundColor = '#111';
-    textbox.style.color = 'white';
-    textbox.style.padding = '10px';
-    
-    const launchText = data.result.map(launch => 
-        `Name: ${launch.name}
-Date: ${new Date(launch.t0).toLocaleString()}
-Provider: ${launch.provider.name}
-Vehicle: ${launch.vehicle.name}
-Location: ${launch.pad.name}
-------------------------`
-    ).join('\n');
-
-    console.log(textbox);
-    
-    textbox.value = launchText;
-    launchesFeed.appendChild(textbox);
-}
-
 
 function processLeftFeed(feedItems) {
     const leftFeedContainer = document.getElementById('leftFeed');
@@ -369,6 +341,7 @@ function processMiddleFeed(feedItems) {
         miiddFeedContainer.appendChild(card);
     });
 }
+
 function processRightFeed(feedItems) {
     const rightFeedContainer = document.getElementById('rightFeed');
     rightFeedContainer.innerHTML = '';
