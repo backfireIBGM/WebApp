@@ -204,10 +204,26 @@ label {
 .launches-grid {
     display: grid;
     grid-template-columns: 20%;
-    grid-template-rows: 20% 20% 20% 20% 20%;
     gap: 10px;
     background-color: #4CAF50;
-    padding-top: 30%;
+    padding-top: 10%;
+    grid-template-rows: auto;
+}
+
+.grid-item {
+    padding: 15px;
+    background-color: rgb(146, 53, 53);
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.grid-item h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.grid-item p {
+    margin: 5px 0;
 }
 
 @font-face {

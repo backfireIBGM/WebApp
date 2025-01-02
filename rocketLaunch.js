@@ -23,7 +23,7 @@ async function fetchLaunches(proxyUrl, url) {
             const data = await response.json();
             // console.log(data);
     
-            processLaunches(data);
+            processLaunches2(data);
             setDateToLaunch(data);
         } catch (error) {
             console.error('Error fetching launches:', error);
@@ -399,17 +399,36 @@ const launches = [
 
 
 function processLaunches2(data) {
-    const Data = document.getElementById('data');
+    // const Data = document.getElementById('data');
 
-    // Changed to getElementsByClassName and using [0] since it returns a collection
+    // // Changed to getElementsByClassName and using [0] since it returns a collection
+    // const container = document.getElementsByClassName('launches-grid')[0];
+    
+    // launches.forEach(launch => {
+    //     const gridItem = document.createElement('div');
+    //     gridItem.className = 'grid-item';
+    //     gridItem.innerHTML = `
+    //         <h3>${launch.name}</h3>
+    //         <p>${launch.date}</p>
+    //     `;
+    //     container.appendChild(gridItem);
+    // });
+
+
     const container = document.getElementsByClassName('launches-grid')[0];
     
-    launches.forEach(launch => {
+    data.result.forEach(launch => {
+        const launchDate = new Date(launch.t0);
+        const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
+
         const gridItem = document.createElement('div');
         gridItem.className = 'grid-item';
         gridItem.innerHTML = `
             <h3>${launch.name}</h3>
-            <p>${launch.date}</p>
+            <p>Date: ${dateString}</p>
+            <p>Provider: ${launch.provider.name}</p>
+            <p>Vehicle: ${launch.vehicle.name}</p>
+            <p>Location: ${launch.pad.name}</p>
         `;
         container.appendChild(gridItem);
     });
