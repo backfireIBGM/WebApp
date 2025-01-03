@@ -391,47 +391,73 @@ function handleGSLV2(img, index) {
         }
 }
 
-const launches = [
-    { name: "Launch 1", date: "2025-01-15" },
-    { name: "Launch 2", date: "2025-02-01" },
-    { name: "Launch 3", date: "2025-02-15" }
-];
-
-
 function processLaunches2(data) {
-    // const Data = document.getElementById('data');
-
-    // // Changed to getElementsByClassName and using [0] since it returns a collection
-    // const container = document.getElementsByClassName('launches-grid')[0];
-    
-    // launches.forEach(launch => {
-    //     const gridItem = document.createElement('div');
-    //     gridItem.className = 'grid-item';
-    //     gridItem.innerHTML = `
-    //         <h3>${launch.name}</h3>
-    //         <p>${launch.date}</p>
-    //     `;
-    //     container.appendChild(gridItem);
-    // });
-
-
     const container = document.getElementsByClassName('launches-grid')[0];
     
-    data.result.forEach(launch => {
+    // Clear any existing intervals
+    if (window.countdownIntervals) {
+        window.countdownIntervals.forEach(interval => clearInterval(interval));
+    }
+    window.countdownIntervals = [];
+
+    data.result.forEach((launch, index) => {
         const launchDate = new Date(launch.t0);
         const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
 
-        const gridItem = document.createElement('div');
-        gridItem.className = 'grid-item';
-        gridItem.innerHTML = `
+        const launchInfo = document.createElement('div');
+        launchInfo.className = 'grid-item';
+        
+        // Create info section
+        const infoSection = document.createElement('div');
+        infoSection.innerHTML = `
             <h3>${launch.name}</h3>
             <p>Date: ${dateString}</p>
             <p>Provider: ${launch.provider.name}</p>
             <p>Vehicle: ${launch.vehicle.name}</p>
             <p>Location: ${launch.pad.name}</p>
         `;
-        container.appendChild(gridItem);
+        
+        // Create countdown section
+        const countdownSection = document.createElement('div');
+        countdownSection.className = 'countdown-column';
+        const countdownText = document.createElement('div');
+        countdownText.id = `countdown-${index}`;
+        countdownSection.appendChild(countdownText);
+
+        // Add both sections to the grid item
+        launchInfo.appendChild(infoSection);
+        launchInfo.appendChild(countdownSection);
+        container.appendChild(launchInfo);
+
+        // Set up countdown timer if there's a valid launch date
+        if (launchDate.getTime() !== 0) {
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = launchDate.getTime() - now;
+
+                if (distance < 0) {
+                    countdownText.innerHTML = "T0";
+                    return;
+                }
+
+                const days = Math.floor(distance / day);
+                const hours = Math.floor((distance % day) / hour);
+                const minutes = Math.floor((distance % hour) / minute);
+                const seconds = Math.floor((distance % minute) / second);
+
+                countdownText.innerHTML = `
+                    <span class="time-unit">${days}d </span>
+                    <span class="time-unit">${hours}h </span>
+                    <span class="time-unit">${minutes}m </span>
+                    <span class="time-unit">${seconds}s</span>
+                `;
+            };
+
+            updateCountdown();
+            const interval = setInterval(updateCountdown, second);
+            window.countdownIntervals.push(interval);
+        } else {
+            countdownText.innerHTML = "Launch date TBD";
+        }
     });
 }
-
-document.addEventListener('DOMContentLoaded', processLaunches2);
