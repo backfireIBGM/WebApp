@@ -229,7 +229,7 @@ label {
     grid-template-rows: repeat(5, 16vh);
     font-size: 1.2em;
     gap: 5px;
-    margin: 8% auto;
+    margin: 6% 2%;
 }
 
 .grid-item {
