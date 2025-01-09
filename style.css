@@ -226,21 +226,22 @@ label {
 
 .launches-grid {
     display: grid;
-    grid-template-rows: repeat(5, 16vh);
+    grid-template-columns: 75% 25%;
     font-size: 1.2em;
     gap: 5px;
     margin: 6% 2%;
+}
+
+.info-column, .countdown-column {
+    display: grid;
+    grid-template-rows: repeat(5, 16vh);
+    gap: 5px;
 }
 
 .grid-item {
     background-color: rgb(146, 53, 53);
     padding: 12px;
     color: white;
-    width: 25%;
-    /* Change to grid for two columns within the item */
-    display: grid;
-    grid-template-columns: 60% 40%;
-    align-items: center;
 }
 
 .grid-item h3 {
@@ -255,11 +256,11 @@ label {
     font-size: 1.3em;
 }
 
-.countdown-column {
+.countdown-column .grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 40px;
 }
 
 .time-unit {

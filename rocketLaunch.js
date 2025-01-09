@@ -399,35 +399,38 @@ function processLaunches2(data) {
         window.countdownIntervals.forEach(interval => clearInterval(interval));
     }
     window.countdownIntervals = [];
-
+    
+    // Create info column
+    const infoColumn = document.createElement('div');
+    infoColumn.className = 'info-column';
+    
+    // Create countdown column
+    const countdownColumn = document.createElement('div');
+    countdownColumn.className = 'countdown-column';
+    
     data.result.forEach((launch, index) => {
         const launchDate = new Date(launch.t0);
         const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
 
-        const launchInfo = document.createElement('div');
-        launchInfo.className = 'grid-item';
-        
-        // Create info section
-        const infoSection = document.createElement('div');
-        infoSection.innerHTML = `
+        // Create info cell
+        const infoCell = document.createElement('div');
+        infoCell.className = 'grid-item';
+        infoCell.innerHTML = `
             <h3>${launch.name}</h3>
             <p>Date: ${dateString}</p>
             <p>Provider: ${launch.provider.name}</p>
             <p>Vehicle: ${launch.vehicle.name}</p>
             <p>Location: ${launch.pad.name}</p>
         `;
+        infoColumn.appendChild(infoCell);
         
-        // Create countdown section
-        const countdownSection = document.createElement('div');
-        countdownSection.className = 'countdown-column';
+        // Create countdown cell
+        const countdownCell = document.createElement('div');
+        countdownCell.className = 'grid-item';
         const countdownText = document.createElement('div');
         countdownText.id = `countdown-${index}`;
-        countdownSection.appendChild(countdownText);
-
-        // Add both sections to the grid item
-        launchInfo.appendChild(infoSection);
-        launchInfo.appendChild(countdownSection);
-        container.appendChild(launchInfo);
+        countdownCell.appendChild(countdownText);
+        countdownColumn.appendChild(countdownCell);
 
         // Set up countdown timer if there's a valid launch date
         if (launchDate.getTime() !== 0) {
@@ -460,4 +463,8 @@ function processLaunches2(data) {
             countdownText.innerHTML = "Launch date TBD";
         }
     });
+    
+    // Add columns to container
+    container.appendChild(infoColumn);
+    container.appendChild(countdownColumn);
 }
