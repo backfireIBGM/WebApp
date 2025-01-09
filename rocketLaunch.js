@@ -442,6 +442,9 @@ function processLaunches2(data) {
         }
         imageColumn.appendChild(imageCell);
 
+
+        
+
         if (launchDate.getTime() !== 0) {
             const updateCountdown = () => {
                 const now = new Date().getTime();
