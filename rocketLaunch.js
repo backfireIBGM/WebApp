@@ -394,25 +394,25 @@ function handleGSLV2(img, index) {
 function processLaunches2(data) {
     const container = document.getElementsByClassName('launches-grid')[0];
     
-    // Clear any existing intervals
     if (window.countdownIntervals) {
         window.countdownIntervals.forEach(interval => clearInterval(interval));
     }
     window.countdownIntervals = [];
     
-    // Create info column
     const infoColumn = document.createElement('div');
     infoColumn.className = 'info-column';
     
-    // Create countdown column
     const countdownColumn = document.createElement('div');
     countdownColumn.className = 'countdown-column';
+
+    const imageColumn = document.createElement('div');
+    imageColumn.className = 'image-column';
     
     data.result.forEach((launch, index) => {
         const launchDate = new Date(launch.t0);
         const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
 
-        // Create info cell
+        // Info cell
         const infoCell = document.createElement('div');
         infoCell.className = 'grid-item';
         infoCell.innerHTML = `
@@ -424,7 +424,7 @@ function processLaunches2(data) {
         `;
         infoColumn.appendChild(infoCell);
         
-        // Create countdown cell
+        // Countdown cell
         const countdownCell = document.createElement('div');
         countdownCell.className = 'grid-item';
         const countdownText = document.createElement('div');
@@ -432,7 +432,16 @@ function processLaunches2(data) {
         countdownCell.appendChild(countdownText);
         countdownColumn.appendChild(countdownCell);
 
-        // Set up countdown timer if there's a valid launch date
+        // Image cell
+        const imageCell = document.createElement('div');
+        imageCell.className = 'grid-item';
+        if (launch.image) {
+            const img = document.createElement('img');
+            img.src = launch.image;
+            imageCell.appendChild(img);
+        }
+        imageColumn.appendChild(imageCell);
+
         if (launchDate.getTime() !== 0) {
             const updateCountdown = () => {
                 const now = new Date().getTime();
@@ -450,7 +459,6 @@ function processLaunches2(data) {
 
                 let displayTime;
                 
-                // Format numbers with leading zeros
                 const formattedHours = hours < 10 ? `0${hours}` : hours;
                 const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
                 const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
@@ -483,7 +491,7 @@ function processLaunches2(data) {
         }
     });
     
-    // Add columns to container
     container.appendChild(infoColumn);
     container.appendChild(countdownColumn);
+    container.appendChild(imageColumn);
 }
