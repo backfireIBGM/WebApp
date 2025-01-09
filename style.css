@@ -226,10 +226,9 @@ label {
 
 .launches-grid {
     display: grid;
-    grid-template-columns: fit-content(75%) fit-content(25%);
+    grid-template-columns: minmax(auto, max-content) minmax(auto, max-content);
     gap: 5px;
     margin: 6% 2%;
-    width: fit-content;
 }
 
 .info-column, .countdown-column {
@@ -241,13 +240,13 @@ label {
 .grid-item {
     background-color: rgb(146, 53, 53);
     padding: 12px;
-    color: white;
 }
 
 .grid-item h3 {
     margin: 0;
     font-size: 2.5rem;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .grid-item p {
@@ -258,15 +257,19 @@ label {
 
 .countdown-column .grid-item {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
 }
+
+[id^="countdown-"] {
+    background-color: black;
+    margin-top: auto;
+    font-family: 'digits', monospace;
+    white-space: nowrap;
+ }
 
 .time-unit {
     font-weight: bold;
     margin: 0 2px;
-    font-size: 1.2em;
+    font-size: clamp(0.8em, 1vw, 1.3em);
 }
 
 @font-face {

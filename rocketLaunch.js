@@ -205,13 +205,7 @@ function setDateToLaunch(data) {
 }
 
 function showMoreInfo(data, isHovered) {
-    const targetRockets = [
-        "Falcon 9",
-        "New Glenn", 
-        "Super Heavy / Starship Prototype",
-        "Eris",
-        "GSLV-II"
-    ];
+
     const moreInfoDiv = document.getElementById('moreInfo');
     
     data.result.forEach((launch, index) => {
@@ -228,19 +222,19 @@ function showMoreInfo(data, isHovered) {
             
             switch (launch.vehicle.name) {
                 case "Falcon 9":
-                    handleFalcon9(img, index);
+                    handleFalcon9(img);
                     break;
                 case "New Glenn":
-                    handleNewGlenn(img, index);
+                    handleNewGlenn(img);
                     break;
                 case "Super Heavy / Starship Prototype":
-                    handleStarship(img, index);
+                    handleStarship(img);
                     break;
                 case "Eris":
-                    handleEris(img, index);
+                    handleEris(img);
                     break;
                 case "GSLV-II":
-                    handleGSLV2(img, index);
+                    handleGSLV2(img);
                     break;
                 default:
                     console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
@@ -265,130 +259,50 @@ function showMoreInfo(data, isHovered) {
     });
 }
 
-function handleFalcon9(img, index) {
-        // img.src = 'Falcon9.jpg';
-        img.style.transform = "scale(0.6)";
-        img.style.paddingLeft = "75%";
-
-        // index = 0;
-
-        switch (index) {
-            case 0:
-                img.style.paddingTop = "9.4%";
-                break;
-            case 1:
-                img.style.paddingTop = "18%";
-                break;
-            case 2:
-                img.style.paddingTop = "27%";
-                break;
-            case 3:
-                img.style.paddingTop = "36%";
-                break;
-            default:
-                img.style.paddingTop = "45%";
-                break;
-        }
+function handleFalcon9(countdownCell) {
+    countdownCell.style.backgroundImage = "url('Falcon9.jpg')";
+    countdownCell.style.backgroundSize = "cover";
+    countdownCell.style.backgroundPosition = "center";
 }
-function handleStarship(img, index) {
-        // img.src = 'StarShip.jpg';
-        img.style.transform = "scale(0.45)";
-        img.style.paddingLeft = "81%";
 
-        // index = 4;
-
-        switch (index) {
-            case 0:
-                img.style.paddingTop = "8.8%";
-                break;
-            case 1:
-                img.style.paddingTop = "18.4%";
-                break;
-            case 2:
-                img.style.paddingTop = "28%";
-                break;
-            case 3:
-                img.style.paddingTop = "37.6%";
-                break;
-            default:
-                img.style.paddingTop = "48.2%";
-                break;
-        }
+function handleStarship(countdownCell) {
+    countdownCell.style.backgroundImage = "url('StarShip.jpg')";
+    countdownCell.style.backgroundSize = "cover";
+    countdownCell.style.backgroundPosition = "center";
 }
-function handleNewGlenn(img, index) {
-        img.src = 'New-Glenn.jpg';
-        img.style.transform = "scale(0.1)";
-        img.style.paddingLeft = "25%";
 
-        index = 0;
-
-        switch (index) {
-            case 0:
-                img.style.paddingTop = "-110%";
-                break;
-            case 1:
-                img.style.paddingTop = "8.8%";
-                break;
-            case 2:
-                img.style.paddingTop = "8.8%";
-                break;
-            case 3:
-                img.style.paddingTop = "8.8%";
-                break;
-            default:
-                img.style.paddingTop = "8.8%";
-                break;
-        }
+function handleNewGlenn(countdownCell) {
+    countdownCell.style.backgroundImage = "url('New-Glenn.jpg')";
+    countdownCell.style.backgroundSize = "cover";
+    countdownCell.style.backgroundPosition = "center";
 }
-function handleEris(img, index) {
-        // img.src = 'Eris.jpg';
-        img.style.transform = "scale(0.6)";
-        img.style.paddingLeft = "1070%";
 
-        // index = 4;
-
-        switch (index) {
-            case 0:
-                img.style.transform = "scale(0.6) translate(1070%, 82%)";
-                break;
-            case 1:
-                img.style.transform = "scale(0.6) translate(1070%, 160%)";
-                break;
-            case 2:
-                img.style.transform = "scale(0.6) translate(1070%, 240%)";
-                break;
-            case 3:
-                img.style.paddingTop = "8.8%";
-                break;
-            default:
-                img.style.paddingTop = "8.8%";
-                break;
-        }
+function handleEris(countdownCell) {
+    countdownCell.style.backgroundImage = "url('Eris.jpg')";
+    countdownCell.style.backgroundSize = "cover";
+    countdownCell.style.backgroundPosition = "center";
 }
-function handleGSLV2(img, index) {
-        // img.src = 'GSLV_II.jpg';
-        img.style.transform = "scale(0.6)";
-        img.style.paddingLeft = "75%";
 
-        // index = 4;
+function handleGSLV2(countdownCell) {
+    countdownCell.style.backgroundImage = "url('GSLV_II.jpg')";
+    countdownCell.style.backgroundSize = "cover";
+    countdownCell.style.backgroundPosition = "center";
+}
 
-        switch (index) {
-            case 0:
-                img.style.transform = "scale(0.4) translate(1830%, 75%)";
-                break;
-            case 1:
-                img.style.transform = "scale(0.4) translate(1830%, 180%)";
-                break;
-            case 2:
-                img.style.transform = "scale(0.4) translate(1830%, 290%)";
-                break;
-            case 3:
-                img.style.transform = "scale(0.4) translate(1830%, 395%)";
-                break;
-            default:
-                img.style.transform = "scale(0.4) translate(1830%, 505%)";
-                break;
-        }
+function setInitialGridWidths() {
+    const infoColumn = document.querySelector('.info-column');
+    const countdownColumn = document.querySelector('.countdown-column');
+    
+    // Force layout calculation
+    infoColumn.style.width = 'fit-content';
+    countdownColumn.style.width = 'fit-content';
+    
+    // Get and set fixed widths
+    const infoWidth = infoColumn.offsetWidth;
+    const countdownWidth = countdownColumn.offsetWidth;
+    
+    infoColumn.style.width = `${infoWidth}px`;
+    countdownColumn.style.width = `${countdownWidth}px`;
 }
 
 function processLaunches2(data) {
@@ -429,8 +343,37 @@ function processLaunches2(data) {
         countdownCell.className = 'grid-item';
         const countdownText = document.createElement('div');
         countdownText.id = `countdown-${index}`;
+
         countdownCell.appendChild(countdownText);
         countdownColumn.appendChild(countdownCell);
+
+        const targetRockets = [
+            "Falcon 9",
+            "New Glenn", 
+            "Super Heavy / Starship Prototype",
+            "Eris",
+            "GSLV-II"
+        ];
+
+        switch (launch.vehicle.name) {
+            case "Falcon 9":
+                handleFalcon9(countdownCell);
+                break;
+            case "New Glenn":
+                handleNewGlenn(countdownCell);
+                break;
+            case "Super Heavy / Starship Prototype":
+                handleStarship(countdownCell);
+                break;
+            case "Eris":
+                handleEris(countdownCell);
+                break;
+            case "GSLV-II":
+                handleGSLV2(countdownCell);
+                break;
+            default:
+                console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
+        }
 
 
         
@@ -486,4 +429,5 @@ function processLaunches2(data) {
     
     container.appendChild(infoColumn);
     container.appendChild(countdownColumn);
+    setInitialGridWidths();
 }
