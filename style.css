@@ -226,7 +226,7 @@ label {
 
 .launches-grid {
     display: grid;
-    grid-template-columns: fit-content(70%) fit-content(25%) 5%;
+    grid-template-columns: fit-content(75%) fit-content(25%);
     gap: 5px;
     margin: 6% 2%;
     width: fit-content;

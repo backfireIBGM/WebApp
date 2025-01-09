@@ -432,16 +432,6 @@ function processLaunches2(data) {
         countdownCell.appendChild(countdownText);
         countdownColumn.appendChild(countdownCell);
 
-        // Image cell
-        const imageCell = document.createElement('div');
-        imageCell.className = 'grid-item';
-        if (launch.image) {
-            const img = document.createElement('img');
-            img.src = launch.image;
-            imageCell.appendChild(img);
-        }
-        imageColumn.appendChild(imageCell);
-
 
         
 
@@ -496,5 +486,4 @@ function processLaunches2(data) {
     
     container.appendChild(infoColumn);
     container.appendChild(countdownColumn);
-    container.appendChild(imageColumn);
 }
