@@ -448,12 +448,31 @@ function processLaunches2(data) {
                 const minutes = Math.floor((distance % hour) / minute);
                 const seconds = Math.floor((distance % minute) / second);
 
-                countdownText.innerHTML = `
-                    <span class="time-unit">${days}d </span>
-                    <span class="time-unit">${hours}h </span>
-                    <span class="time-unit">${minutes}m </span>
-                    <span class="time-unit">${seconds}s</span>
-                `;
+                let displayTime;
+                
+                // Format numbers with leading zeros
+                const formattedHours = hours < 10 ? `0${hours}` : hours;
+                const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+                const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+                
+                if (days > 0) {
+                    displayTime = `${days}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+                } else if (minutes > 0 || hours > 0) {
+                    if (hours >= 10) {
+                        displayTime = `T- ${hours}:${formattedMinutes}:${formattedSeconds}`;
+                    } else if (hours >= 1) {
+                        displayTime = `T- ${hours}:${formattedMinutes}:${formattedSeconds}`;
+                    } else {
+                        displayTime = `T- ${formattedMinutes}:${formattedSeconds}`;
+                    }
+                } else if (seconds <= 10) {
+                    const decimalSeconds = seconds + (distance % 1000) / 1000;
+                    displayTime = `T- ${decimalSeconds.toFixed(2)}`;
+                    if (decimalSeconds < 1) {
+                        displayTime = `T- 0${decimalSeconds.toFixed(2)}`;
+                    }
+                }
+                countdownText.innerHTML = `<span class="time-unit">${displayTime}</span>`;
             };
 
             updateCountdown();
