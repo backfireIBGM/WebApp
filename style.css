@@ -227,9 +227,9 @@ label {
 .launches-grid {
     display: grid;
     grid-template-columns: 75% 25%;
-    font-size: 1.2em;
     gap: 5px;
     margin: 6% 2%;
+    width: fit-content;
 }
 
 .info-column, .countdown-column {
@@ -253,7 +253,7 @@ label {
 .grid-item p {
     margin: 0;
     line-height: 1.1;
-    font-size: 1.3em;
+    font-size: clamp(0.8em, 1vw, 1.3em);
 }
 
 .countdown-column .grid-item {
