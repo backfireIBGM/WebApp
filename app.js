@@ -4,7 +4,6 @@ const rssUrl = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2R
     'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA'];
 
-
 const jsonRocketLaunches = "https://fdo.rocketlaunch.live/json/launches/next/5";
 
 
@@ -434,8 +433,38 @@ fetchAllRSSFeeds(proxyUrl, rssUrl)
     .then(feedItems => {
         allFeedItems = feedItems;
         processFeed(feedItems, document.getElementById('searchBox').checked);
+        fetchLaunches(proxyUrl, jsonRocketLaunches);
     })
     .catch(error => {
         console.error('Error:', error);
     });
 
+    async function fetchLaunches(proxyUrl, url) {
+        try {
+            // console.log("test");
+            const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            setTickerItems(data);
+        } catch (error) {
+            console.error('Error fetching launches:', error);
+        }
+}
+
+    function setTickerItems(data) {
+        const ticker = document.getElementsByClassName('ticker')[0];
+    
+        data.result.forEach((launch, index) => {
+            // Only create ticker item if there's a mission description
+            if (launch.mission_description) {
+                // Create new ticker item
+                const item = document.createElement('div');
+                item.classList.add('ticker_item');
+                item.classList.add('launch'+ (index + 1));
+                item.textContent = launch.mission_description;
+                
+                // Add to ticker
+                ticker.appendChild(item);
+            }
+        });
+    }
