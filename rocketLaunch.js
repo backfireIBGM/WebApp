@@ -343,6 +343,7 @@ function processLaunches2(data) {
         countdownCell.className = 'grid-item';
         const countdownText = document.createElement('div');
         countdownText.id = `countdown-${index}`;
+        countdownText.className = 'timerBox';
 
         countdownCell.appendChild(countdownText);
         countdownColumn.appendChild(countdownCell);

@@ -212,9 +212,11 @@ label {
     font-family: 'digits';
     border-radius: 1%;
     padding-right: 100%;
-    display: flex;
+    /* display: flex; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 7.5rem;
+    font-size: 1.3em;
+    text-align: center;
 }
 
 #MilkyWay {
@@ -257,6 +259,7 @@ label {
 
 .countdown-column .grid-item {
     display: flex;
+    padding: 0;
 }
 
 [id^="countdown-"] {
@@ -266,10 +269,16 @@ label {
     white-space: nowrap;
  }
 
+ .timerBox {
+    width: 100%;
+    text-align: center;
+ }
+
 .time-unit {
     font-weight: bold;
-    margin: 0 2px;
-    font-size: clamp(0.8em, 1vw, 1.3em);
+    width: 100%;
+    text-align: center;
+    display: block;
 }
 
 @font-face {
