@@ -230,7 +230,7 @@ label {
     display: grid;
     grid-template-columns: minmax(auto, max-content) minmax(auto, max-content);
     gap: 5px;
-    margin: 6% 2%;
+    margin: 3% 2%;
 }
 
 .info-column, .countdown-column {
@@ -280,6 +280,23 @@ label {
     text-align: center;
     display: block;
 }
+
+.launch1 {
+    color: #4CAF50;
+}
+.launch2 {
+    color: #4cafaf;
+}
+.launch3 {
+    color: #4c63af;
+}
+.launch4 {
+    color: #af4caf;
+}
+.launch5 {
+    color: #af4c4c;
+}
+
 
 @font-face {
     font-family: 'digits';
