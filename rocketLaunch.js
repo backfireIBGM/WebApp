@@ -453,20 +453,34 @@ function processLaunches2(data) {
 
 function setTickerItems(data) {
     const ticker = document.getElementsByClassName('ticker')[0];
+    
+    // Clear existing ticker items if any
+    ticker.innerHTML = '';
 
+    // Create and append the initial "Next Five Launches" text
+    const initialItem = document.createElement('div');
+    initialItem.classList.add('ticker_item');
+    initialItem.textContent = "The Next Five Launches Are:";
+    ticker.appendChild(initialItem);
+
+    // Process each launch
     data.result.forEach((launch, index) => {
-        // Only create ticker item if there's a mission description
         if (launch.mission_description) {
-            // Create new ticker item
             const item = document.createElement('div');
             item.classList.add('ticker_item');
-            item.classList.add('launch'+ (index + 1));
-            item.textContent = launch.mission_description;
-            
-            // Add to ticker
+            item.classList.add('launch' + (index + 1));
+            item.textContent = `${launch.name}: ${launch.mission_description}`;
             ticker.appendChild(item);
         }
     });
+
+    // If there weren't any mission descriptions, add a fallback message
+    if (ticker.children.length === 1) {
+        const fallbackItem = document.createElement('div');
+        fallbackItem.classList.add('ticker_item');
+        fallbackItem.textContent = "No mission descriptions available";
+        ticker.appendChild(fallbackItem);
+    }
 }
 
 function getRocketInfo(vehicleName) {
