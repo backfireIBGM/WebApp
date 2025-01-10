@@ -340,8 +340,8 @@ label {
     animation-timing-function: linear;
     -webkit-animation-name: ticker;
     animation-name: ticker;
-    -webkit-animation-duration: 30s;
-    animation-duration: 30s;
+    -webkit-animation-duration: 120s;
+    animation-duration: 120s;
   }
   
   .ticker_item {
