@@ -319,8 +319,8 @@ function processLaunches2(data) {
     const countdownColumn = document.createElement('div');
     countdownColumn.className = 'countdown-column';
 
-    const imageColumn = document.createElement('div');
-    imageColumn.className = 'image-column';
+    const rocketInfoColumn = document.createElement('div');
+    rocketInfoColumn.className = 'rocket-info-column';
     
     data.result.forEach((launch, index) => {
         const launchDate = new Date(launch.t0);
@@ -378,6 +378,22 @@ function processLaunches2(data) {
         }
 
 
+                // Rocket info cell
+                const rocketInfoCell = document.createElement('div');
+                rocketInfoCell.className = 'grid-item';
+                rocketInfoCell.classList.add('launch'+ (index + 1));
+                
+                const rocketInfo = getRocketInfo(launch.vehicle.name);
+                rocketInfoCell.innerHTML = `
+                    <h4>Vehicle Specifications</h4>
+                    <p>Height: ${rocketInfo.height}</p>
+                    <p>Diameter: ${rocketInfo.diameter}</p>
+                    <p>Mass: ${rocketInfo.mass}</p>
+                    <p>Thrust: ${rocketInfo.thrust}</p>
+                    <p>${rocketInfo.description}</p>
+                `;
+                rocketInfoColumn.appendChild(rocketInfoCell);
+
         
 
         if (launchDate.getTime() !== 0) {
@@ -430,6 +446,7 @@ function processLaunches2(data) {
     });
     
     container.appendChild(infoColumn);
+    container.appendChild(rocketInfoColumn);
     container.appendChild(countdownColumn);
     setInitialGridWidths();
 }
@@ -450,4 +467,169 @@ function setTickerItems(data) {
             ticker.appendChild(item);
         }
     });
+}
+
+// function processLaunches2(data) {
+//     const container = document.getElementsByClassName('launches-grid')[0];
+    
+//     if (window.countdownIntervals) {
+//         window.countdownIntervals.forEach(interval => clearInterval(interval));
+//     }
+//     window.countdownIntervals = [];
+//     data.result.forEach((launch, index) => {
+//         const launchDate = new Date(launch.t0);
+//         const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
+
+//         // Info cell
+//         const infoCell = document.createElement('div');
+//         infoCell.className = 'grid-item';
+//         infoCell.classList.add('launch'+ (index + 1));
+//         infoCell.innerHTML = `
+//             <h3>${launch.name}</h3>
+//             <p>Date: ${dateString}</p>
+//             <p>Provider: ${launch.provider.name}</p>
+//             <p>Vehicle: ${launch.vehicle.name}</p>
+//             <p>Location: ${launch.pad.name}</p>
+//         `;
+//         infoColumn.appendChild(infoCell);
+        
+//         // Countdown cell
+//         const countdownCell = document.createElement('div');
+//         countdownCell.className = 'grid-item';
+//         const countdownText = document.createElement('div');
+//         countdownText.id = `countdown-${index}`;
+//         countdownText.className = 'timerBox';
+
+//         countdownCell.appendChild(countdownText);
+//         countdownColumn.appendChild(countdownCell);
+
+//         const targetRockets = [
+//             "Falcon 9",
+//             "New Glenn", 
+//             "Super Heavy / Starship Prototype",
+//             "Eris",
+//             "GSLV-II"
+//         ];
+
+//         switch (launch.vehicle.name) {
+//             case "Falcon 9":
+//                 handleFalcon9(countdownCell);
+//                 break;
+//             case "New Glenn":
+//                 handleNewGlenn(countdownCell);
+//                 break;
+//             case "Super Heavy / Starship Prototype":
+//                 handleStarship(countdownCell);
+//                 break;
+//             case "Eris":
+//                 handleEris(countdownCell);
+//                 break;
+//             case "GSLV-II":
+//                 handleGSLV2(countdownCell);
+//                 break;
+//             default:
+//                 console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
+//         }
+//
+//         if (launchDate.getTime() !== 0) {
+//             const updateCountdown = () => {
+//                 const now = new Date().getTime();
+//                 const distance = launchDate.getTime() - now;
+
+//                 if (distance < 0) {
+//                     countdownText.innerHTML = "T0";
+//                     return;
+//                 }
+
+//                 const days = Math.floor(distance / day);
+//                 const hours = Math.floor((distance % day) / hour);
+//                 const minutes = Math.floor((distance % hour) / minute);
+//                 const seconds = Math.floor((distance % minute) / second);
+
+//                 let displayTime;
+                
+//                 const formattedHours = hours < 10 ? `0${hours}` : hours;
+//                 const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+//                 const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+                
+//                 if (days > 0) {
+//                     displayTime = `${days}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+//                 } else if (minutes > 0 || hours > 0) {
+//                     if (hours >= 10) {
+//                         displayTime = `T- ${hours}:${formattedMinutes}:${formattedSeconds}`;
+//                     } else if (hours >= 1) {
+//                         displayTime = `T- ${hours}:${formattedMinutes}:${formattedSeconds}`;
+//                     } else {
+//                         displayTime = `T- ${formattedMinutes}:${formattedSeconds}`;
+//                     }
+//                 } else if (seconds <= 10) {
+//                     const decimalSeconds = seconds + (distance % 1000) / 1000;
+//                     displayTime = `T- ${decimalSeconds.toFixed(2)}`;
+//                     if (decimalSeconds < 1) {
+//                         displayTime = `T- 0${decimalSeconds.toFixed(2)}`;
+//                     }
+//                 }
+//                 countdownText.innerHTML = `<span class="time-unit">${displayTime}</span>`;
+//             };
+
+//             updateCountdown();
+//             const interval = setInterval(updateCountdown, second);
+//             window.countdownIntervals.push(interval);
+//         } else {
+//             countdownText.innerHTML = "Launch date TBD";
+//         }
+//     });
+
+//     container.appendChild(infoColumn);
+//     container.appendChild(rocketInfoColumn);
+//     container.appendChild(countdownColumn);
+//     setInitialGridWidths();
+// }
+
+function getRocketInfo(vehicleName) {
+    const rocketSpecs = {
+        "Falcon 9": {
+            height: "70 m (230 ft)",
+            diameter: "3.7 m (12 ft)",
+            mass: "549,054 kg (1,210,457 lb)",
+            thrust: "7,607 kN (1,710,000 lbf)",
+            description: "Two-stage-to-orbit medium lift launch vehicle with reusable first stage."
+        },
+        "New Glenn": {
+            height: "98 m (322 ft)",
+            diameter: "7 m (23 ft)",
+            mass: "Unknown",
+            thrust: "17,100 kN (3,850,000 lbf)",
+            description: "Heavy-lift orbital launch vehicle with reusable first stage."
+        },
+        "Super Heavy / Starship Prototype": {
+            height: "120 m (394 ft)",
+            diameter: "9 m (30 ft)",
+            mass: "5,000,000 kg (11,000,000 lb)",
+            thrust: "74,000 kN (16,600,000 lbf)",
+            description: "Fully reusable super heavy-lift launch vehicle system."
+        },
+        "Eris": {
+            height: "40.5 m (133 ft)",
+            diameter: "2.8 m (9.2 ft)",
+            mass: "Unknown",
+            thrust: "1,000 kN (225,000 lbf)",
+            description: "Three-stage small-lift launch vehicle designed for small satellite deployment."
+        },
+        "GSLV-II": {
+            height: "49 m (161 ft)",
+            diameter: "2.8 m (9.2 ft)",
+            mass: "414,750 kg (914,360 lb)",
+            thrust: "6,810 kN (1,530,000 lbf)",
+            description: "Three-stage medium-lift launch vehicle for both LEO and GTO missions."
+        }
+    };
+
+    return rocketSpecs[vehicleName] || {
+        height: "Not available",
+        diameter: "Not available",
+        mass: "Not available",
+        thrust: "Not available",
+        description: "Specifications not available for this vehicle."
+    };
 }
