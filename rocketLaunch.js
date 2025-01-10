@@ -24,7 +24,7 @@ async function fetchLaunches(proxyUrl, url) {
             // console.log(data);
     
             processLaunches2(data);
-            setDateToLaunch(data);
+            setTickerItems(data);
         } catch (error) {
             console.error('Error fetching launches:', error);
         }
@@ -431,4 +431,21 @@ function processLaunches2(data) {
     container.appendChild(infoColumn);
     container.appendChild(countdownColumn);
     setInitialGridWidths();
+}
+
+function setTickerItems(data) {
+    const ticker = document.getElementsByClassName('ticker')[0];
+
+    data.result.forEach(launch => {
+        // Only create ticker item if there's a mission description
+        if (launch.mission_description) {
+            // Create new ticker item
+            const item = document.createElement('div');
+            item.classList.add('ticker_item');
+            item.textContent = launch.mission_description;
+            
+            // Add to ticker
+            ticker.appendChild(item);
+        }
+    });
 }

@@ -344,7 +344,7 @@ label {
     animation-duration: 30s;
   }
   
-  .ticker__item {
+  .ticker_item {
     display: inline-block;
     padding: 0 2rem;
     font-size: 2rem;
