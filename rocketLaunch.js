@@ -329,6 +329,7 @@ function processLaunches2(data) {
         // Info cell
         const infoCell = document.createElement('div');
         infoCell.className = 'grid-item';
+        infoCell.classList.add('launch'+ (index + 1));
         infoCell.innerHTML = `
             <h3>${launch.name}</h3>
             <p>Date: ${dateString}</p>
@@ -436,12 +437,13 @@ function processLaunches2(data) {
 function setTickerItems(data) {
     const ticker = document.getElementsByClassName('ticker')[0];
 
-    data.result.forEach(launch => {
+    data.result.forEach((launch, index) => {
         // Only create ticker item if there's a mission description
         if (launch.mission_description) {
             // Create new ticker item
             const item = document.createElement('div');
             item.classList.add('ticker_item');
+            item.classList.add('launch'+ (index + 1));
             item.textContent = launch.mission_description;
             
             // Add to ticker
