@@ -289,6 +289,12 @@ function handleGSLV2(countdownCell) {
     countdownCell.style.backgroundPosition = "center";
 }
 
+function handleJielong3(countdownCell) {
+    countdownCell.style.backgroundImage = "url('Jielong-3.jpg')";
+    countdownCell.style.backgroundSize = "cover";
+    countdownCell.style.backgroundPosition = "center";
+}
+
 function setInitialGridWidths() {
     const infoColumn = document.querySelector('.info-column');
     const countdownColumn = document.querySelector('.countdown-column');
@@ -354,7 +360,8 @@ function processLaunches2(data) {
             "New Glenn", 
             "Super Heavy / Starship Prototype",
             "Eris",
-            "GSLV-II"
+            "GSLV-II",
+            "Jielong-3"
         ];
 
         switch (launch.vehicle.name) {
@@ -373,6 +380,8 @@ function processLaunches2(data) {
             case "GSLV-II":
                 handleGSLV2(countdownCell);
                 break;
+            case "Jielong-3":
+                handleJielong3(countdownCell);
             default:
                 console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
         }
