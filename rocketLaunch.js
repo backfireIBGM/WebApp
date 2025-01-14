@@ -29,50 +29,6 @@ async function fetchLaunches(proxyUrl, url) {
             console.error('Error fetching launches:', error);
         }
 }
-
-// function processLaunches(data) {
-//         // console.log(data);
-//         const Data = document.getElementById('data');
-//         // if (!launchesFeed || !data.result) return;
-        
-//         // launchesFeed.innerHTML = '';
-//         const textbox = document.createElement('textarea');
-//         textbox.style.resize = "none";
-//         textbox.style.width = '100%';
-//         textbox.style.height = '90%';
-//         textbox.style.backgroundColor = '#111';
-//         textbox.style.color = 'white';
-//         textbox.style.zIndex = 0;
-//         textbox.style.fontSize = '150%';
-//         textbox.readOnly = true;
-
-
-        
-        
-//     const countText = data.result.map(launch => {
-//         const launchDate = new Date(launch.t0);
-//         const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
-
-
-//     return `Name: ${launch.name}
-//     Date: ${dateString}
-//     Provider: ${launch.provider.name}
-//     Vehicle: ${launch.vehicle.name}
-//     Location: ${launch.pad.name}
-//     -----------------------------------`;
-// }).join('\n');            
-
-//     textbox.value = countText;
-//     launchesFeed.appendChild(textbox);
-
-//     textbox.onmouseover = () => {
-//         showMoreInfo(data, true);
-//     };
-    
-//     textbox.onmouseout = () => {
-//         showMoreInfo(data, false);
-//     };
-// }
     
 function setDateToLaunch(data) {
 
@@ -415,9 +371,15 @@ function processLaunches2(data) {
                 rocketInfoCell.className = 'grid-item';
                 rocketInfoCell.classList.add('launch'+ (index + 1));
                 
+                
                 const rocketInfo = getRocketInfo(launch.vehicle.name);
+                let vehicleName = launch.vehicle.name;
+                if (vehicleName == "Super Heavy / Starship Prototype") {
+                    vehicleName = "Starship"
+                }
+
                 rocketInfoCell.innerHTML = `
-                    <h3>Vehicle: ${launch.vehicle.name}</h3>
+                    <h3>Vehicle: ${vehicleName}</h3>
                     <p>Height: ${rocketInfo.height}</p>
                     <p>Diameter: ${rocketInfo.diameter}</p>
                     <p>Mass: ${rocketInfo.mass}</p>
