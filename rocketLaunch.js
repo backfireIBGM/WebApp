@@ -23,7 +23,7 @@ async function fetchLaunches(proxyUrl, url) {
             const data = await response.json();
             console.log(data);
     
-            processLaunches2(data);
+            processLaunches(data);
             setTickerItems(data);
         } catch (error) {
             console.error('Error fetching launches:', error);
@@ -204,19 +204,16 @@ function showMoreInfo(data, isHovered) {
             moreInfoDiv.appendChild(div);
         }
     });
-
-    data.result.forEach((launch, index) => {
-        if (targetRockets.includes(launch.vehicle.name)) {
-            const existingImg = document.getElementById(`Img${index}`);
-            if (existingImg) {
-                existingImg.style.visibility = isHovered ? "visible" : "hidden";
-            }
-        }
-    });
 }
 
 function handleFalcon9(countdownCell) {
     countdownCell.style.backgroundImage = "url('Falcon9.jpg')";
+    countdownCell.style.backgroundSize = "cover";
+    countdownCell.style.backgroundPosition = "center";
+}
+
+function handleFalconHevay(countdownCell) {
+    countdownCell.style.backgroundImage = "url('FalconHeavy.jpg')";
     countdownCell.style.backgroundSize = "cover";
     countdownCell.style.backgroundPosition = "center";
 }
@@ -273,7 +270,7 @@ function setInitialGridWidths() {
     countdownColumn.style.width = `${countdownWidth}px`;
 }
 
-function processLaunches2(data) {
+function processLaunches(data) {
     const container = document.getElementsByClassName('launches-grid')[0];
     
     if (window.countdownIntervals) {
@@ -332,24 +329,18 @@ function processLaunches2(data) {
         countdownCell.appendChild(countdownText);
         countdownColumn.appendChild(countdownCell);
 
-        const targetRockets = [
-            "Falcon 9",
-            "New Glenn", 
-            "Super Heavy / Starship Prototype",
-            "Eris",
-            "GSLV-II",
-            "Jielong-3"
-        ];
-
         switch (launch.vehicle.name) {
             case "Falcon 9":
                 handleFalcon9(countdownCell);
                 break;
-            case "New Glenn":
-                handleNewGlenn(countdownCell);
+            case "Falcon Heavy":
+                handleFalconHevay(countdownCell);
                 break;
             case "Super Heavy / Starship Prototype":
                 handleStarship(countdownCell);
+                break;
+            case "New Glenn":
+                handleNewGlenn(countdownCell);
                 break;
             case "Eris":
                 handleEris(countdownCell);
@@ -492,18 +483,21 @@ function setTickerItems(data) {
 function getRocketInfo(vehicleName) {
     const rocketSpecs = {
         "Falcon 9": {
-            height: "70 m (230 ft)",
-            diameter: "3.7 m (12 ft)",
-            mass: "549,054 kg (1,210,457 lb)",
-            thrust: "7,607 kN (1,710,000 lbf)",
-            description: "Two-stage-to-orbit medium lift launch vehicle with reusable first stage."
+            height: "70 m / 229.6 ft",
+            diameter: "3.7 m / 12 ft",
+            mass: "549,054 kg / 1,207,920 lb",
+            thrust: "7,607 kN / 1,710,000 lbf",
+            payloadToLeo: "22,800 kg 50,265 lb",
+            payloadToGeo: "8,300 kg / 18,300 lb",
+            description: "Medium-lift orbital rocket featuring autonomous landing capability and reusable first stage powered by nine Merlin engines. Over 200 successful launches since 2010."
         },
-        "New Glenn": {
-            height: "98 m (322 ft)",
-            diameter: "7 m (23 ft)",
-            mass: "Unknown",
-            thrust: "17,100 kN (3,850,000 lbf)",
-            description: "Heavy-lift orbital launch vehicle with reusable first stage."
+        "Falcon Heavy": {
+            height: "70 m / 229.6 ft",
+            diameter: "12.2 m / 39.9 ft",
+            mass: "1,420,788 kg / 3,125,735 lb",
+            payloadToLeo: "63,800 kg / 140,660 lb",
+            payloadToGeo: "26,700 kg / 58,860 lb",
+            description: "Two-stage-to-orbit heavy lift launch vehicle with reusable first stage."
         },
         "Super Heavy / Starship Prototype": {
             height: "120 m (394 ft)",
@@ -511,6 +505,13 @@ function getRocketInfo(vehicleName) {
             mass: "5,000,000 kg (11,000,000 lb)",
             thrust: "74,000 kN (16,600,000 lbf)",
             description: "Fully reusable super heavy-lift launch vehicle system."
+        },
+        "New Glenn": {
+            height: "98 m (322 ft)",
+            diameter: "7 m (23 ft)",
+            mass: "Unknown",
+            thrust: "17,100 kN (3,850,000 lbf)",
+            description: "Heavy-lift orbital launch vehicle with reusable first stage."
         },
         "Eris": {
             height: "40.5 m (133 ft)",
@@ -526,6 +527,9 @@ function getRocketInfo(vehicleName) {
             thrust: "6,810 kN (1,530,000 lbf)",
             description: "Three-stage medium-lift launch vehicle for both LEO and GTO missions."
         }
+        // Jielong-3
+        // "Long March 2D"
+
     };
 
     return rocketSpecs[vehicleName] || {
