@@ -21,7 +21,7 @@ async function fetchLaunches(proxyUrl, url) {
             const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
-            // console.log(data);
+            console.log(data);
     
             processLaunches2(data);
             setTickerItems(data);
@@ -295,6 +295,12 @@ function handleJielong3(countdownCell) {
     countdownCell.style.backgroundPosition = "center";
 }
 
+function handleLongMarch2D(countdownCell) {
+    countdownCell.style.backgroundImage = "url('Long March 2D.jpg')";
+    countdownCell.style.backgroundSize = "cover";
+    countdownCell.style.backgroundPosition = "center";
+}
+ 
 function setInitialGridWidths() {
     const infoColumn = document.querySelector('.info-column');
     const countdownColumn = document.querySelector('.countdown-column');
@@ -330,7 +336,23 @@ function processLaunches2(data) {
     
     data.result.forEach((launch, index) => {
         const launchDate = new Date(launch.t0);
-        const dateString = launchDate.getTime() === 0 ? "No Set Launch Time" : launchDate.toLocaleString();
+        let dateString;
+
+        if (launch.win_open != null && launch.win_close != null) {
+            dateString = `Window is from: ${launch.win_open} to ${launch.win_close}`;
+        }
+        else if (launch.win_open != null) {
+            dateString = `Window Opens: ${launch.win_open}`;
+        }
+        else if (launch.win_close != null) {
+            dateString = `Window Closes: ${launch.win_close}`;
+        }
+        else if (launch.t0 != null) {
+            dateString = `TO: ${launchDate}`;
+        }
+        else {
+            dateString = "Awaiting T0";
+        }
 
         // Info cell
         const infoCell = document.createElement('div');
@@ -338,10 +360,9 @@ function processLaunches2(data) {
         infoCell.classList.add('launch'+ (index + 1));
         infoCell.innerHTML = `
             <h3>${launch.name}</h3>
-            <p>Date: ${dateString}</p>
             <p>Provider: ${launch.provider.name}</p>
-            <p>Vehicle: ${launch.vehicle.name}</p>
-            <p>Location: ${launch.pad.name}</p>
+            <p>${dateString}</p>
+            <p>Launch Pad: ${launch.pad.name}</p>
         `;
         infoColumn.appendChild(infoCell);
         
@@ -382,6 +403,8 @@ function processLaunches2(data) {
                 break;
             case "Jielong-3":
                 handleJielong3(countdownCell);
+            case "Long March 2D":
+                handleLongMarch2D(countdownCell);
             default:
                 console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
         }
@@ -394,7 +417,7 @@ function processLaunches2(data) {
                 
                 const rocketInfo = getRocketInfo(launch.vehicle.name);
                 rocketInfoCell.innerHTML = `
-                    <h4>Vehicle Specifications</h4>
+                    <h3>Vehicle: ${launch.vehicle.name}</h3>
                     <p>Height: ${rocketInfo.height}</p>
                     <p>Diameter: ${rocketInfo.diameter}</p>
                     <p>Mass: ${rocketInfo.mass}</p>
@@ -450,7 +473,7 @@ function processLaunches2(data) {
             const interval = setInterval(updateCountdown, second);
             window.countdownIntervals.push(interval);
         } else {
-            countdownText.innerHTML = "Launch date TBD";
+            countdownText.innerHTML = "Awaiting T0";
         }
     });
     
