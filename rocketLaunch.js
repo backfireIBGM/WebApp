@@ -371,22 +371,34 @@ function processLaunches2(data) {
                 rocketInfoCell.className = 'grid-item';
                 rocketInfoCell.classList.add('launch'+ (index + 1));
                 
-                
-                const rocketInfo = getRocketInfo(launch.vehicle.name);
                 let vehicleName = launch.vehicle.name;
                 if (vehicleName == "Super Heavy / Starship Prototype") {
                     vehicleName = "Starship"
                 }
-
-                rocketInfoCell.innerHTML = `
+                
+                let rocketInfo = getRocketInfo(launch.vehicle.name);
+                console.log(rocketInfo.height);
+                if (rocketInfo.height == "Not available") {
+                    rocketInfoCell.innerHTML = `
                     <h3>Vehicle: ${vehicleName}</h3>
-                    <p>Height: ${rocketInfo.height}</p>
-                    <p>Diameter: ${rocketInfo.diameter}</p>
-                    <p>Mass: ${rocketInfo.mass}</p>
-                    <p>Thrust: ${rocketInfo.thrust}</p>
-                    <p>${rocketInfo.description}</p>
+                    <p>No info available</p>
                 `;
+                }
+                else {
+                    rocketInfoCell.innerHTML = `
+                        <h3>Vehicle: ${vehicleName}</h3>
+                        <p>Height: ${rocketInfo.height}</p>
+                        <p>Diameter: ${rocketInfo.diameter}</p>
+                        <p>Mass: ${rocketInfo.mass}</p>
+                        <p>Thrust: ${rocketInfo.thrust}</p>
+                        <p>${rocketInfo.description}</p>
+                    `;
+                }
                 rocketInfoColumn.appendChild(rocketInfoCell);
+
+
+
+
 
         
 
