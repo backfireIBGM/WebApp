@@ -258,6 +258,8 @@ label {
 .grid-item {
     background-color: rgb(0, 0, 0);
     padding: 12px;
+    overflow-y: auto;
+    scrollbar-width: none;
 }
 
 .grid-item h3 {
