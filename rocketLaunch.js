@@ -248,6 +248,12 @@ function handleJielong3(countdownCell) {
     countdownCell.style.backgroundPosition = "center";
 }
 
+function handleLongMarch8(countdownCell) {
+    countdownCell.style.backgroundImage = "url('LongMarch8.jpg')";
+    countdownCell.style.backgroundSize = "cover";
+    countdownCell.style.backgroundPosition = "center";
+}
+
 function handleLongMarch2D(countdownCell) {
     countdownCell.style.backgroundImage = "url('Long March 2D.jpg')";
     countdownCell.style.backgroundSize = "cover";
@@ -352,6 +358,9 @@ function processLaunches(data) {
                 handleJielong3(countdownCell);
             case "Long March 2D":
                 handleLongMarch2D(countdownCell);
+            case "Long March 8":
+                handleLongMarch8(countdownCell);
+                break;
             default:
                 console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
         }
@@ -529,6 +538,7 @@ function getRocketInfo(vehicleName) {
         }
         // Jielong-3
         // "Long March 2D"
+        // Long March 8
 
     };
 
