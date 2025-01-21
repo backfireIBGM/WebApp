@@ -22,12 +22,11 @@ header {
     background-image: url('Milky_Way_illustration-1.jpeg');
     background-size: cover;
     background-position: center;
-    /* background-repeat: no-repeat;
-    background-attachment: fixed; */
+    background-attachment: fixed;  /* This keeps the background fixed while scrolling */
     font-family: Arial, sans-serif;
     color: white;
-    overflow: scroll;
-    
+    overflow-y: auto;  /* Enable vertical scrolling */
+    overflow-x: hidden;  /* Prevent horizontal scrolling */
 }
 
 .rocket-launches-page {
