@@ -29,6 +29,12 @@ header {
     overflow-x: hidden;  /* Prevent horizontal scrolling */
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 .rocket-launches-page {
     margin: 0;
     padding: 0;
