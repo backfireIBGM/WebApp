@@ -239,8 +239,37 @@ label {
 
 #news-grid {
     display: grid;
-    grid-template-columns: minmax(auto, max-content);
-    margin-top: 10%;
+    grid-template-columns: 1fr 1fr;  /* Two equal columns */
+    gap: 20px;
+    margin-top: 3.5%;
+    padding: 0 20px;
+}
+
+.name-column {
+    width: 100%;
+    height: 300px;  /* Fixed height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.image-column {
+    width: 100%;
+    height: 300px;  /* Fixed height */
+}
+
+.article-cell {
+    padding: 20px;
+    height: 300px;  /* Fixed height */
+    overflow-y: auto;  /* Scrollable if content exceeds height */
+}
+
+.article-image-cell {
+    width: 100%;
+    height: 300px;  /* Fixed height */
+    border-radius: 8px;
+    background-repeat: no-repeat;
 }
 
 .info-column {

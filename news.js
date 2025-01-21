@@ -84,12 +84,26 @@ function showResult(article) {
     console.log("data");
 
     const infoColumn = document.createElement('div');
-    infoColumn.className = 'info-column';
+    infoColumn.className = 'name-column';
 
-    const articleCell =  document.createElement('div');
+    const countdownColumn = document.createElement('div');
+    countdownColumn.className = 'image-column';
+
+    const articleCell = document.createElement('div');
+    articleCell.className = 'article-cell';
     articleCell.innerHTML = `
-            <h3>${article.title}</h3>
-        `;
+        <h3>${article.title}</h3>
+    `;
+
+    const articleImage = document.createElement('div');
+    articleImage.className = 'image-column';
+
+    const articleImageCell = document.createElement('div');
+    articleImageCell.className = 'article-image-cell';
+    articleImageCell.style.backgroundImage = `url('${article.image_url}')`;
+    articleImageCell.style.backgroundSize = 'cover';
+    articleImageCell.style.backgroundPosition = 'center';
 
     container.appendChild(articleCell);
+    container.appendChild(articleImageCell);
 }
