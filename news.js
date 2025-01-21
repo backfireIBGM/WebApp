@@ -1,8 +1,8 @@
 const proxyUrl = 'https://corsproxy.io/';
 const jsonRocketLaunches = "https://fdo.rocketlaunch.live/json/launches/next/5";
 
-getSpaceNewsWithEvent();
 fetchLaunches(proxyUrl, jsonRocketLaunches);
+getSpaceNewsWithEvent();
 
 async function fetchLaunches(proxyUrl, url) {
     try {
@@ -65,7 +65,11 @@ async function getSpaceNewsWithEvent() {
                     events: article.events,
                     Images: article.image_url
                 });
+                
+                showResult(article);
             });
+
+            
         } else {
             console.log('error');
         }
@@ -73,4 +77,19 @@ async function getSpaceNewsWithEvent() {
     } catch (error) {
         console.error('Error fetching space news:', error);
     }
+}
+
+function showResult(article) {
+    const container = document.getElementById('news-grid');
+    console.log("data");
+
+    const infoColumn = document.createElement('div');
+    infoColumn.className = 'info-column';
+
+    const articleCell =  document.createElement('div');
+    articleCell.innerHTML = `
+            <h3>${article.title}</h3>
+        `;
+
+    container.appendChild(articleCell);
 }

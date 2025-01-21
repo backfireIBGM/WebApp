@@ -237,6 +237,12 @@ label {
     height: auto;
 }
 
+.news-grid {
+    display: grid;
+    grid-template-columns: minmax(auto, max-content);
+    margin-top: 10%;
+}
+
 .info-column {
     grid-column: 1;
 }
