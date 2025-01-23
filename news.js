@@ -50,7 +50,7 @@ function setTickerItems(data) {
 
 async function getSpaceNewsWithEvent() {
     try {
-        const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=3');
+        const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=');
         const data = await response.json();
         
         // Log the entire response data
@@ -59,13 +59,6 @@ async function getSpaceNewsWithEvent() {
         // Access specific properties
         if (data.results.length > 0) {
             data.results.forEach(article => {
-                console.log({
-                    title: article.title,
-                    news_site: article.news_site,
-                    events: article.events,
-                    Images: article.image_url
-                });
-                
                 showResult(article);
             });
 
@@ -81,29 +74,27 @@ async function getSpaceNewsWithEvent() {
 
 function showResult(article) {
     const container = document.getElementById('news-grid');
-    console.log("data");
-
-    const infoColumn = document.createElement('div');
-    infoColumn.className = 'name-column';
-
-    const countdownColumn = document.createElement('div');
-    countdownColumn.className = 'image-column';
-
+ 
     const articleCell = document.createElement('div');
     articleCell.className = 'article-cell';
     articleCell.innerHTML = `
-        <h3>${article.title}</h3>
-    `;
-
-    const articleImage = document.createElement('div');
-    articleImage.className = 'image-column';
-
+    <div class="article-box">
+        <h3><a href="${article.url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">${article.title}</a></h3>
+    </div>
+`;
+ 
     const articleImageCell = document.createElement('div');
     articleImageCell.className = 'article-image-cell';
     articleImageCell.style.backgroundImage = `url('${article.image_url}')`;
     articleImageCell.style.backgroundSize = 'cover';
     articleImageCell.style.backgroundPosition = 'center';
-
+ 
+    const articleImageLink = document.createElement('a');
+    articleImageLink.href = article.url;
+    articleImageLink.target = '_blank';
+    articleImageLink.rel = 'noopener noreferrer';
+    articleImageLink.appendChild(articleImageCell);
+ 
     container.appendChild(articleCell);
-    container.appendChild(articleImageCell);
-}
+    container.appendChild(articleImageLink);
+ }
