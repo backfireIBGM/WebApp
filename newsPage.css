@@ -97,7 +97,7 @@ header {
     bottom: 0;
     width: 100%;
     overflow: hidden;
-    height: 4rem;
+    height: 64px;
     background-color: rgba(0, 0, 0, 0.9);
     padding-left: 100%;
     box-sizing: content-box;
