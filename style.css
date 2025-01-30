@@ -13,6 +13,7 @@ header {
 .index-page {
     background: rgb(0, 0, 0);
     color: white;
+    overflow-y: auto;
 }
 
 
@@ -26,14 +27,6 @@ header {
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: white;
-}
-
-body.search-active {
-    overflow-y: auto;
-}
-
-body:not(.search-active) {
-    overflow-y: hidden;
 }
 
 .banner-image {
