@@ -147,3 +147,10 @@ a:link,a:visited {
     text-decoration: none;
     color: white;
 }
+
+.header-container {
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
