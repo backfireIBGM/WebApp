@@ -120,12 +120,14 @@ a:link,a:visited {
     justify-content: center;
     flex-direction: column;
     height: 100%;
-    color: #000;
+    color: #ffffff;
 }
 
 .header-container {
+    padding-top: 40px;
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 body.search-active h2.feed-header {
