@@ -12,7 +12,74 @@
         <a id="homeButton" href="./newspage.html">News</a>
     </header>
     <div class="header-container">
-        <img src="spaceNewsLogo.png" class="header-image">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+            <!-- Gradient definitions -->
+            <defs>
+              <linearGradient id="sweepGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#00ff00;stop-opacity:0.6"/>
+                <stop offset="50%" style="stop-color:#00ff00;stop-opacity:0.3"/>
+                <stop offset="100%" style="stop-color:#00ff00;stop-opacity:0"/>
+              </linearGradient>
+              
+              <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#00ff00;stop-opacity:0.2"/>
+                <stop offset="100%" style="stop-color:#00ff00;stop-opacity:0"/>
+              </linearGradient>
+            </defs>
+          
+            <!-- Background glow -->
+            <circle cx="200" cy="100" r="82" fill="none" stroke="url(#glowGradient)" stroke-width="4"/>
+          
+            <!-- Radar circles with subtle green tint -->
+            <circle cx="200" cy="100" r="80" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+            <circle cx="200" cy="100" r="60" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+            <circle cx="200" cy="100" r="40" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+            
+            <!-- Animated radar sweep -->
+            <g>
+              <path d="M200,100 L280,100 A80,80 0 0,1 270,130 Z" 
+                    fill="url(#sweepGradient)" opacity="0.8">
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  to="0 200 100" 
+                  from="360 200 100"
+                  dur="5s"
+                  repeatCount="indefinite"
+                  additive="sum"/>
+              </path>
+              
+              <!-- Radar line -->
+              <line x1="200" y1="100" x2="280" y2="100" 
+                    stroke="#00ff00" stroke-width="2" opacity="0.9">
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  from="360 200 100"
+                  to="0 200 100"
+                  dur="5s"
+                  repeatCount="indefinite"
+                  additive="sum"/>
+              </line>
+            </g>
+          
+            <!-- Grid lines with subtle green tint -->
+            <line x1="120" y1="100" x2="280" y2="100" stroke="#1a1a1a" stroke-width="0.5" opacity="0.5"/>
+            <line x1="200" y1="20" x2="200" y2="180" stroke="#1a1a1a" stroke-width="0.5" opacity="0.5"/>
+          
+            <!-- Rocket silhouette -->
+            <g transform="translate(180,60) scale(0.4) rotate(45)">
+              <path d="M100,10 L120,100 L140,100 L160,10 L130,0 Z" fill="#ff3333"/>
+              <rect x="120" y="100" width="20" height="30" fill="#ff3333"/>
+              <path d="M110,100 L120,100 L120,130 L110,120 Z" fill="#cc2222"/>
+              <path d="M140,100 L150,100 L150,120 L140,130 Z" fill="#cc2222"/>
+            </g>
+          
+            <!-- Text -->
+            <text x="50" y="160" font-family="Arial, sans-serif" font-weight="bold" font-size="32" fill="#fff">
+              ROCKET RADAR
+            </text>
+          </svg>
     </div>
     <div class="launches-grid">
     <div class="ticker-wrap">
