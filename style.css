@@ -370,7 +370,7 @@ label {
   
   .ticker {
     display: inline-block;
-    height: 4rem;
+    height: 75px;
     line-height: 4rem;  
     white-space: nowrap;
     padding-right: 100%;
