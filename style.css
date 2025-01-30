@@ -29,11 +29,11 @@ header {
 }
 
 body.search-active {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
-.index-page body:not(.search-active) {
-    overflow: hidden;
+body:not(.search-active) {
+    overflow-y: hidden;
 }
 
 .banner-image {
@@ -54,6 +54,7 @@ h1 {
     width: 100%;
     height: 65vh;
     float: left;
+    padding-bottom: 85px;
 }
 
 #left, #middle, #right {
@@ -72,6 +73,7 @@ h1 {
     width: 85%;
     margin: 0 auto;
     padding: 0 20px;
+    padding-bottom: 85px;
 }
 
 /* Update the card styles for search results */
@@ -87,9 +89,10 @@ h1 {
     display: none;
 }
 
-#searchBoxf {
+#searchBox {
     float: right;
 }
+
 .card {
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -128,20 +131,12 @@ a:link,a:visited {
 }
 
 .header-container {
-    position: relative;
-    width: 200px;
-    height: 285px;
-    overflow: hidden;
-    margin: 0 auto;        /* Center the container horizontally */
-    display: block;        /* Ensure it's a block element */
-    
+    display: flex;
+    justify-content: center;
 }
 
-h2.feed-header body.search-active {
+body.search-active h2.feed-header {
     display: none;
-}
-
-.header-image {
 }
 
 .overlay-text {
