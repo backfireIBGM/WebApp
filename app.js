@@ -1,11 +1,71 @@
 const proxyUrl = 'https://corsproxy.io/';
+const jsonRocketLaunches = "https://fdo.rocketlaunch.live/json/launches/next/5";
 
 const rssUrl = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2RifWkKtDOJdsBA',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA'];
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCelXvXZDvx8_TdOOffevzGg',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCNxwUG0Vq8TztWdxL83FLHQ',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCBNHHEoiSF8pcLgqLKVugOw',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCILl8ozWuxnFYXIe2svjHhg',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCciQ8wFcVoIIMi-lfu8-cjQ',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCYNbYGl89UUowy8oXkipC-Q',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UC1XvxnHFtWruS9egyFasP1Q',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCFwMITSkc1Fms6PoJoh1OUQ',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCQbKe0RZ62u47TZ8vmKNnRA'];
 
-const jsonRocketLaunches = "https://fdo.rocketlaunch.live/json/launches/next/5";
 
+
+let leftFeedIds = [];
+
+let middleFeedIds = [];
+
+let rightFeedIds = [];
+
+// Helper function to get RSS URL for a channel ID
+const getRssUrl = (channelId) => `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+
+// Helper function to get RSS URLs for a feed
+const getFeedUrls = (feedIds) => feedIds.map(id => getRssUrl(id));
+
+const removeFromFeed = (channelId, feedPosition) => {
+    switch(feedPosition) {
+        case 'left':
+            leftFeedIds = leftFeedIds.filter(id => id !== channelId);
+            break;
+        case 'middle':
+            middleFeedIds = middleFeedIds.filter(id => id !== channelId);
+            break;
+        case 'right':
+            rightFeedIds = rightFeedIds.filter(id => id !== channelId);
+            break;
+    }
+}
+
+// Add event listener
+checkbox.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        leftFeedIds.push('UCsXVk37bltHxD1rDPwtNM8Q');
+    } else {
+        removeFromFeed('UCsXVk37bltHxD1rDPwtNM8Q', 'left');
+    }
+
+    reloadFeeds();
+});
+
+function reloadFeeds() {
+    fetchAllRSSFeeds(proxyUrl, rssUrl)
+    .then(feedItems => {
+        allFeedItems = feedItems;
+        processFeed(feedItems, document.getElementById('searchBox').checked);
+        fetchLaunches(proxyUrl, jsonRocketLaunches);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+}
 
 
 async function fetchRSSWithProxy(proxyUrl, rssUrl) {
@@ -73,6 +133,7 @@ function extractFeedItems(xmlDoc) {
     for (let i = 0; i < entries.length; i++) {
         const entry = entries[i];
         feedItems.push({
+            channelName: entry.querySelector('author name, media\\:group media\\:credit')?.textContent,
             channelId: entry.querySelector('channelId')?.textContent,
             id: entry.querySelector('videoId')?.textContent,
             title: entry.querySelector('title')?.textContent,
@@ -81,7 +142,7 @@ function extractFeedItems(xmlDoc) {
             thumbnail: entry.querySelector('thumbnail')?.getAttribute('url'),
             thumbnailWidth: entry.querySelector('thumbnail')?.getAttribute('width'),
             thumbnailHeight: entry.querySelector('thumbnail')?.getAttribute('height'),
-            description: entry.querySelector('media\\:descriotion, description')?.textContent
+            description: entry.querySelector('media\\:description, description')?.textContent
         });
     }
 
@@ -221,8 +282,8 @@ function processLeftFeed(feedItems) {
 
     let leftResults = []
 
-    for (channelKey in feedItems) {
-        if (feedItems[channelKey].channelId.includes("UCSUu1lih2RifWkKtDOJdsBA")) {
+    for (const channelKey in feedItems) {
+        if (leftFeedIds.some(id => feedItems[channelKey].channelId.includes(id))) {
             leftResults.push(feedItems[channelKey]);
         }
     }
@@ -277,6 +338,8 @@ function processLeftFeed(feedItems) {
         card.appendChild(published);
         leftFeedContainer.appendChild(card);
     });
+
+    listChannleNames(leftResults);
 }
 
 function processMiddleFeed(feedItems) {
@@ -285,8 +348,8 @@ function processMiddleFeed(feedItems) {
 
     let middleResults = []
 
-    for (channelKey in feedItems) {
-        if (feedItems[channelKey].channelId.includes("UC6uKrU_WqJ1R2HMTY3LIx5Q")) {
+    for (const channelKey in feedItems) {
+        if (middleFeedIds.some(id => feedItems[channelKey].channelId.includes(id))) {
             middleResults.push(feedItems[channelKey]);
         }
     }
@@ -339,17 +402,18 @@ function processMiddleFeed(feedItems) {
         card.appendChild(published);
         miiddFeedContainer.appendChild(card);
     });
+
+    listChannleNames(middleResults);
 }
 
 function processRightFeed(feedItems) {
     const rightFeedContainer = document.getElementById('rightFeed');
     rightFeedContainer.innerHTML = '';
-    //Headers.appendChild(feed-header);
 
     let rightResults = []
 
-    for (channelKey in feedItems) {
-        if (feedItems[channelKey].channelId.includes("UCy6Q9UCG7Wa-N7nht2BFrHA")) {
+    for (const channelKey in feedItems) {
+        if (rightFeedIds.some(id => feedItems[channelKey].channelId.includes(id))) {
             rightResults.push(feedItems[channelKey]);
         }
     }
@@ -402,6 +466,17 @@ function processRightFeed(feedItems) {
         card.appendChild(published);
         rightFeedContainer.appendChild(card);
     });
+
+    listChannleNames(rightResults);
+}
+
+function listChannleNames(videos) {
+    // Create a Set to remove duplicates
+    const uniqueChannels = new Set(videos.map(video => video.channelName));
+    
+    // Convert back to array and log
+    const channelList = Array.from(uniqueChannels);
+    console.log('Channels:', channelList);
 }
 
 document.getElementById('searchBox').addEventListener('keyup', function() {
@@ -419,37 +494,6 @@ document.getElementById('searchBox').addEventListener('search', function() {
         processFeed(allFeedItems, '');
     }
 });
-
-// Update your fetchLaunches .then() call
-// fetchLaunches(proxyUrl, jsonRocketLaunches)
-//     .then(data => {
-//         console.log(data);
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//     });
-
-fetchAllRSSFeeds(proxyUrl, rssUrl)
-    .then(feedItems => {
-        allFeedItems = feedItems;
-        processFeed(feedItems, document.getElementById('searchBox').checked);
-        fetchLaunches(proxyUrl, jsonRocketLaunches);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-
-    async function fetchLaunches(proxyUrl, url) {
-        try {
-            // console.log("test");
-            const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-            setTickerItems(data);
-        } catch (error) {
-            console.error('Error fetching launches:', error);
-        }
-}
 
 function setTickerItems(data) {
     const ticker = document.getElementsByClassName('ticker')[0];
@@ -482,3 +526,5 @@ function setTickerItems(data) {
         ticker.appendChild(fallbackItem);
     }
 }
+
+reloadFeeds();
