@@ -5,14 +5,14 @@ const rssUrls = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2
     'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q', // EDA
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA', // CSI
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCelXvXZDvx8_TdOOffevzGg', // EIS
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCNxwUG0Vq8TztWdxL83FLHQ',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCBNHHEoiSF8pcLgqLKVugOw',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCILl8ozWuxnFYXIe2svjHhg',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCNxwUG0Vq8TztWdxL83FLHQ', // RH
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCBNHHEoiSF8pcLgqLKVugOw', // MHouse
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCILl8ozWuxnFYXIe2svjHhg', // BPS.Space
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q', // Kurzgesagt
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCciQ8wFcVoIIMi-lfu8-cjQ', // Anton
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCYNbYGl89UUowy8oXkipC-Q',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UC1XvxnHFtWruS9egyFasP1Q',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCFwMITSkc1Fms6PoJoh1OUQ',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCYNbYGl89UUowy8oXkipC-Q', // Dr. Becky
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UC1XvxnHFtWruS9egyFasP1Q', // WAI
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCFwMITSkc1Fms6PoJoh1OUQ', // LP
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCQbKe0RZ62u47TZ8vmKNnRA'];
 
 
@@ -29,23 +29,25 @@ let globalChannelList = [
     'NASASpaceflight',
     'RGV Aerial Photography',
     'RyanHansenSpace',
-    'What about it!?'
+    'What about it!?',
+    'IDK'
 ];
 
 const channelMapping = {
-    'Anton Petrov': 'UCciQ8wFcVoIIMi-lfu8-cjQ',
-    'BPS.space': 'UCILl8ozWuxnFYXIe2svjHhg',
-    'CSI Starbase': 'UC1XvxnHFtWruS9egyFasP1Q',
-    'Dr. Becky': 'UCYNbYGl89UUowy8oXkipC-Q',
-    'Ellie in Space': 'UCFwMITSkc1Fms6PoJoh1OUQ',
+    'Anton Petrov': 'UCciQ8wFcVoIIMi-lfu8-cjQ', // T
+    'BPS.space': 'UCILl8ozWuxnFYXIe2svjHhg', // T
+    'CSI Starbase': 'UCy6Q9UCG7Wa-N7nht2BFrHA', // T
+    'Dr. Becky': 'UCYNbYGl89UUowy8oXkipC-Q', // T
+    'Ellie in Space': 'UCelXvXZDvx8_TdOOffevzGg', // T
     'Everyday Astronaut': 'UC6uKrU_WqJ1R2HMTY3LIx5Q', // T
-    'Kurzgesagt – In a Nutshell': 'UCsXVk37bltHxD1rDPwtNM8Q',
-    'LabPadre Space': 'UCFwMITSkc1Fms6PoJoh1OUQ',
-    'Marcus House': 'UCBNHHEoiSF8pcLgqLKVugOw',
-    'NASASpaceflight': 'UCSUu1lih2RifWkKtDOJdsBA',
-    'RGV Aerial Photography': 'UCy6Q9UCG7Wa-N7nht2BFrHA',
-    'RyanHansenSpace': 'UCSUu1lih2RifWkKtDOJdsBA',
-    'What about it!?': 'UCelXvXZDvx8_TdOOffevzGg'
+    'Kurzgesagt – In a Nutshell': 'UCsXVk37bltHxD1rDPwtNM8Q', // T
+    'LabPadre Space': 'UCFwMITSkc1Fms6PoJoh1OUQ', // T
+    'Marcus House': 'UCBNHHEoiSF8pcLgqLKVugOw', // T
+    'NASASpaceflight': 'UCSUu1lih2RifWkKtDOJdsBA', // T
+    'RGV Aerial Photography': 'UCNxwUG0Vq8TztWdxL83FLHQ',
+    'RyanHansenSpace': 'UCNxwUG0Vq8TztWdxL83FLHQ', // T
+    'What about it!?': 'UC1XvxnHFtWruS9egyFasP1Q',
+    'IDK' : 'UCQbKe0RZ62u47TZ8vmKNnRA'
 };
 
 let leftFeedIds = [];
