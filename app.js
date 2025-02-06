@@ -1,7 +1,7 @@
 const proxyUrl = 'https://corsproxy.io/';
 const jsonRocketLaunches = "https://fdo.rocketlaunch.live/json/launches/next/5";
 
-const rssUrl = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2RifWkKtDOJdsBA',
+const rssUrls = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2RifWkKtDOJdsBA',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCelXvXZDvx8_TdOOffevzGg',
@@ -16,6 +16,37 @@ const rssUrl = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2R
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCQbKe0RZ62u47TZ8vmKNnRA'];
 
 
+let globalChannelList = [
+    'Anton Petrov',
+    'BPS.space',
+    'CSI Starbase',
+    'Dr. Becky',
+    'Ellie in Space',
+    'Everyday Astronaut',
+    'Kurzgesagt – In a Nutshell',
+    'LabPadre Space',
+    'Marcus House',
+    'NASASpaceflight',
+    'RGV Aerial Photography',
+    'RyanHansenSpace',
+    'What about it!?'
+];
+
+const channelMapping = {
+    'Anton Petrov': 'UCciQ8wFcVoIIMi-lfu8-cjQ',
+    'BPS.space': 'UCILl8ozWuxnFYXIe2svjHhg',
+    'CSI Starbase': 'UC1XvxnHFtWruS9egyFasP1Q',
+    'Dr. Becky': 'UCYNbYGl89UUowy8oXkipC-Q',
+    'Ellie in Space': 'UCFwMITSkc1Fms6PoJoh1OUQ',
+    'Everyday Astronaut': 'UC6uKrU_WqJ1R2HMTY3LIx5Q',
+    'Kurzgesagt – In a Nutshell': 'UCsXVk37bltHxD1rDPwtNM8Q',
+    'LabPadre Space': 'UCFwMITSkc1Fms6PoJoh1OUQ',
+    'Marcus House': 'UCBNHHEoiSF8pcLgqLKVugOw',
+    'NASASpaceflight': 'UCSUu1lih2RifWkKtDOJdsBA',
+    'RGV Aerial Photography': 'UCy6Q9UCG7Wa-N7nht2BFrHA',
+    'RyanHansenSpace': 'UCSUu1lih2RifWkKtDOJdsBA',
+    'What about it!?': 'UCelXvXZDvx8_TdOOffevzGg'
+};
 
 let leftFeedIds = [];
 
@@ -28,80 +59,6 @@ const getRssUrl = (channelId) => `https://www.youtube.com/feeds/videos.xml?chann
 
 // Helper function to get RSS URLs for a feed
 const getFeedUrls = (feedIds) => feedIds.map(id => getRssUrl(id));
-
-const removeFromFeed = (channelId, feedPosition) => {
-    switch(feedPosition) {
-        case 'left':
-            leftFeedIds = leftFeedIds.filter(id => id !== channelId);
-            break;
-        case 'middle':
-            middleFeedIds = middleFeedIds.filter(id => id !== channelId);
-            break;
-        case 'right':
-            rightFeedIds = rightFeedIds.filter(id => id !== channelId);
-            break;
-    }
-}
-
-// Add event listener
-checkbox.addEventListener('change', (e) => {
-    if (e.target.checked) {
-        leftFeedIds.push('UCsXVk37bltHxD1rDPwtNM8Q');
-    } else {
-        removeFromFeed('UCsXVk37bltHxD1rDPwtNM8Q', 'left');
-    }
-
-    reloadFeeds();
-});
-
-function reloadFeeds() {
-    fetchAllRSSFeeds(proxyUrl, rssUrl)
-    .then(feedItems => {
-        allFeedItems = feedItems;
-        processFeed(feedItems, document.getElementById('searchBox').checked);
-        fetchLaunches(proxyUrl, jsonRocketLaunches);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-
-}
-
-
-async function fetchRSSWithProxy(proxyUrl, rssUrl) {
-    try {
-        //console.log(rssUrl);
-        const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(rssUrl)}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const rssText = await response.text();
-        // console.log(rssText);
-        return rssText;
-    } catch (error) {
-        console.error('Error fetching RSS feed through proxy:', error);
-        throw error;
-    }
-}
-
-async function fetchLaunches(proxyUrl, url) {
-    try {
-        const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const data = await response.json();
-        // console.log(data);
-
-        processLaunches(data);
-    } catch (error) {
-        console.error('Error fetching launches:', error);
-    }
-}
-
-function parseRSS(rssText) {
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(rssText, 'text/xml');
-    return xmlDoc;
-}
 
 async function fetchAllRSSFeeds(proxyUrl, rssUrls) {
     try {
@@ -119,11 +76,35 @@ async function fetchAllRSSFeeds(proxyUrl, rssUrls) {
             allFeedItems.push(...feedItems);  // Push the current feed items
         }
 
+        console.log(allFeedItems);
+
         return allFeedItems;
     } catch (error) {
         console.error('Error fetching RSS feeds:', error);
         throw error;
     }
+}
+
+async function fetchRSSWithProxy(proxyUrl, rssUrl) {
+    try {
+        //console.log(rssUrl);
+        const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(rssUrl)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const rssText = await response.text();
+        // console.log(rssText);
+        return rssText;
+    } catch (error) {
+        console.error('Error fetching RSS feed through proxy:', error);
+        throw error;
+    }
+}
+
+function parseRSS(rssText) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(rssText, 'text/xml');
+    return xmlDoc;
 }
 
 function extractFeedItems(xmlDoc) {
@@ -165,12 +146,9 @@ function extractRocketLaucnes(xmlDoc) {
     }
 }
 
-
 document.getElementById('searchBox').addEventListener('keyup', function () {
     processFeed(allFeedItems, this.value.toLowerCase());
 });
-
-// let allFeedItems = [];
 
 function processFeed(feedItems, isSearch) {
     if (isSearch) {
@@ -470,15 +448,6 @@ function processRightFeed(feedItems) {
     listChannleNames(rightResults);
 }
 
-function listChannleNames(videos) {
-    // Create a Set to remove duplicates
-    const uniqueChannels = new Set(videos.map(video => video.channelName));
-    
-    // Convert back to array and log
-    const channelList = Array.from(uniqueChannels);
-    console.log('Channels:', channelList);
-}
-
 document.getElementById('searchBox').addEventListener('keyup', function() {
     const searchValue = this.value.trim().toLowerCase();
     if (searchValue === '') {  // If search is empty or cleared
@@ -487,6 +456,120 @@ document.getElementById('searchBox').addEventListener('keyup', function() {
         processFeed(allFeedItems, searchValue);
     }
 });
+
+function reloadFeeds() {
+    fetchAllRSSFeeds(proxyUrl, rssUrls)
+    .then(feedItems => {
+        allFeedItems = feedItems;
+        processFeed(feedItems, document.getElementById('searchBox').checked);
+        fetchLaunches(proxyUrl, jsonRocketLaunches);
+        listChannleNames(feedItems);
+        createChannelDropdown();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+async function fetchLaunches(proxyUrl, url) {
+    try {
+        // console.log("test");
+        const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        console.log(data);
+
+        setTickerItems(data);
+    } catch (error) {
+        console.error('Error fetching launches:', error);
+    }
+}
+
+function createChannelDropdown() {
+    for(let i = 1; i <= 3; i++) {
+        const selectElement = document.createElement('select');
+        selectElement.id = `channelSelect${i}`;
+        
+        globalChannelList.forEach((channel, index) => {
+            const option = document.createElement('option');
+            option.value = channel;
+            option.textContent = channel;
+            selectElement.appendChild(option);
+        });
+        
+        const container = document.getElementById(`feed-container${i}`);
+        
+        const existingSelect = document.getElementById(`channelSelect${i}`);
+        if (existingSelect) {
+            existingSelect.remove();
+        }
+        
+        container.appendChild(selectElement);
+        
+        // Set default selection
+        selectElement.selectedIndex = i-1;
+        
+        // Set initial feed IDs based on default selections
+        const selectedChannel = selectElement.value;
+        const channelId = channelMapping[selectedChannel];
+        
+        if (i === 1) {
+            leftFeedIds = [channelId];
+        } else if (i === 2) {
+            middleFeedIds = [channelId];
+        } else if (i === 3) {
+            rightFeedIds = [channelId];
+        }
+
+        selectElement.addEventListener('change', (event) => {
+            const selectedChannel = event.target.value;
+            const channelId = channelMapping[selectedChannel];
+            
+            if (i === 1) {
+                leftFeedIds = [channelId];
+            } else if (i === 2) {
+                middleFeedIds = [channelId];
+            } else if (i === 3) {
+                rightFeedIds = [channelId];
+            }
+            
+            console.log(`Dropdown ${i} selected channel:`, selectedChannel, 'ID:', channelId);
+            reloadFeeds();
+        });
+    }
+}
+
+// function sortChannelNames() {
+//     globalChannelList.sort((a, b) => a.localeCompare(b));
+//     console.log('Sorted Channels:', globalChannelList);
+// }
+
+
+reloadFeeds();
+
+
+
+function listChannleNames(videos) {
+    // Create a Set to remove duplicates
+    const uniqueChannels = new Set(videos.map(video => video.channelName));
+    
+    globalChannelList = Array.from(uniqueChannels); // Store in global variable
+    console.log('Channels:', globalChannelList);
+}
+
+const removeFromFeed = (channelId, feedPosition) => {
+    switch(feedPosition) {
+        case 'left':
+            leftFeedIds = leftFeedIds.filter(id => id !== channelId);
+            break;
+        case 'middle':
+            middleFeedIds = middleFeedIds.filter(id => id !== channelId);
+            break;
+        case 'right':
+            rightFeedIds = rightFeedIds.filter(id => id !== channelId);
+            break;
+    }
+}
 
 // Add this event listener for the search input's clear button (X)
 document.getElementById('searchBox').addEventListener('search', function() {
@@ -527,4 +610,15 @@ function setTickerItems(data) {
     }
 }
 
-reloadFeeds();
+rightFeedIds.push('UCQbKe0RZ62u47TZ8vmKNnRA');
+
+// Add event listener
+// checkbox.addEventListener('change', (e) => {
+//     if (e.target.checked) {
+//         leftFeedIds.push('UCsXVk37bltHxD1rDPwtNM8Q');
+//     } else {
+//         removeFromFeed('UCsXVk37bltHxD1rDPwtNM8Q', 'left');
+//     }
+
+//     reloadFeeds();
+// });
