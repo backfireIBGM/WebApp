@@ -1,15 +1,15 @@
 const proxyUrl = 'https://corsproxy.io/';
 const jsonRocketLaunches = "https://fdo.rocketlaunch.live/json/launches/next/5";
 
-const rssUrls = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2RifWkKtDOJdsBA',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCelXvXZDvx8_TdOOffevzGg',
+const rssUrls = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2RifWkKtDOJdsBA', // NSF
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q', // EDA
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA', // CSI
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCelXvXZDvx8_TdOOffevzGg', // EIS
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCNxwUG0Vq8TztWdxL83FLHQ',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCBNHHEoiSF8pcLgqLKVugOw',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCILl8ozWuxnFYXIe2svjHhg',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q',
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCciQ8wFcVoIIMi-lfu8-cjQ',
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCciQ8wFcVoIIMi-lfu8-cjQ', // Anton
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCYNbYGl89UUowy8oXkipC-Q',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UC1XvxnHFtWruS9egyFasP1Q',
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCFwMITSkc1Fms6PoJoh1OUQ',
@@ -38,7 +38,7 @@ const channelMapping = {
     'CSI Starbase': 'UC1XvxnHFtWruS9egyFasP1Q',
     'Dr. Becky': 'UCYNbYGl89UUowy8oXkipC-Q',
     'Ellie in Space': 'UCFwMITSkc1Fms6PoJoh1OUQ',
-    'Everyday Astronaut': 'UC6uKrU_WqJ1R2HMTY3LIx5Q',
+    'Everyday Astronaut': 'UC6uKrU_WqJ1R2HMTY3LIx5Q', // T
     'Kurzgesagt – In a Nutshell': 'UCsXVk37bltHxD1rDPwtNM8Q',
     'LabPadre Space': 'UCFwMITSkc1Fms6PoJoh1OUQ',
     'Marcus House': 'UCBNHHEoiSF8pcLgqLKVugOw',
