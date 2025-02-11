@@ -21,7 +21,7 @@ async function fetchLaunches(proxyUrl, url) {
             const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
     
             processLaunches(data);
             setTickerItems(data);
@@ -205,60 +205,6 @@ function showMoreInfo(data, isHovered) {
         }
     });
 }
-
-function handleFalcon9(countdownCell) {
-    countdownCell.style.backgroundImage = "url('Falcon9.jpg')";
-    countdownCell.style.backgroundSize = "cover";
-    countdownCell.style.backgroundPosition = "center";
-}
-
-function handleFalconHevay(countdownCell) {
-    countdownCell.style.backgroundImage = "url('FalconHeavy.jpg')";
-    countdownCell.style.backgroundSize = "cover";
-    countdownCell.style.backgroundPosition = "center";
-}
-
-function handleStarship(countdownCell) {
-    countdownCell.style.backgroundImage = "url('StarShip.jpg')";
-    countdownCell.style.backgroundSize = "cover";
-    countdownCell.style.backgroundPosition = "center";
-}
-
-function handleNewGlenn(countdownCell) {
-    countdownCell.style.backgroundImage = "url('New-Glenn.jpg')";
-    countdownCell.style.backgroundSize = "cover";
-    countdownCell.style.backgroundPosition = "center";
-}
-
-function handleEris(countdownCell) {
-    countdownCell.style.backgroundImage = "url('Eris.jpg')";
-    countdownCell.style.backgroundSize = "cover";
-    countdownCell.style.backgroundPosition = "center";
-}
-
-function handleGSLV2(countdownCell) {
-    countdownCell.style.backgroundImage = "url('GSLV_II.jpg')";
-    countdownCell.style.backgroundSize = "cover";
-    countdownCell.style.backgroundPosition = "center";
-}
-
-function handleJielong3(countdownCell) {
-    countdownCell.style.backgroundImage = "url('Jielong-3.jpg')";
-    countdownCell.style.backgroundSize = "cover";
-    countdownCell.style.backgroundPosition = "center";
-}
-
-function handleLongMarch8(countdownCell) {
-    countdownCell.style.backgroundImage = "url('LongMarch8.jpg')";
-    countdownCell.style.backgroundSize = "cover";
-    countdownCell.style.backgroundPosition = "center";
-}
-
-function handleLongMarch2D(countdownCell) {
-    countdownCell.style.backgroundImage = "url('Long March 2D.jpg')";
-    countdownCell.style.backgroundSize = "cover";
-    countdownCell.style.backgroundPosition = "center";
-}
  
 function setInitialGridWidths() {
     const infoColumn = document.querySelector('.info-column');
@@ -331,35 +277,43 @@ function processLaunches(data) {
         const countdownText = document.createElement('div');
         countdownText.id = `countdown-${index}`;
         countdownText.className = 'timerBox';
+        countdownCell.style.backgroundSize = "cover";
+        countdownCell.style.backgroundPosition = "center";
 
         countdownCell.appendChild(countdownText);
         countdownColumn.appendChild(countdownCell);
 
         switch (launch.vehicle.name) {
             case "Falcon 9":
-                handleFalcon9(countdownCell);
+                countdownCell.style.backgroundImage = "url('Falcon9.jpg')";
                 break;
             case "Falcon Heavy":
-                handleFalconHevay(countdownCell);
+                countdownCell.style.backgroundImage = "url('FalconHeavy.jpg')";
                 break;
             case "Super Heavy / Starship Prototype":
-                handleStarship(countdownCell);
+                countdownCell.style.backgroundImage = "url('Starship.jpg')";
                 break;
             case "New Glenn":
-                handleNewGlenn(countdownCell);
+                countdownCell.style.backgroundImage = "url('New-Glenn.jpg')";
                 break;
             case "Eris":
-                handleEris(countdownCell);
+                countdownCell.style.backgroundImage = "url('Eris.jpg')";
                 break;
             case "GSLV-II":
-                handleGSLV2(countdownCell);
+                countdownCell.style.backgroundImage = "url('GSLV_II.jpg')";
                 break;
             case "Jielong-3":
-                handleJielong3(countdownCell);
+                countdownCell.style.backgroundImage = "url('Jielong-3.jpg')";
             case "Long March 2D":
-                handleLongMarch2D(countdownCell);
+                countdownCell.style.backgroundImage = "url('Long March 2D.jpg')";
             case "Long March 8":
-                handleLongMarch8(countdownCell);
+                countdownCell.style.backgroundImage = "url('LongMarch8.jpg')";
+                break;
+            case "Electron":
+                countdownCell.style.backgroundImage = "url('Electron.jpg')";
+                break;
+            case "Ariane 6":
+                countdownCell.style.backgroundImage = "url('Ariane6.jpg')";
                 break;
             default:
                 console.warn(`Unexpected rocket type: ${launch.vehicle.name}`);
@@ -377,7 +331,7 @@ function processLaunches(data) {
                 }
                 
                 let rocketInfo = getRocketInfo(launch.vehicle.name);
-                console.log(rocketInfo.height);
+                // console.log(rocketInfo.height);
                 if (rocketInfo.height == "Not available") {
                     rocketInfoCell.innerHTML = `
                     <h3>Vehicle: ${vehicleName}</h3>
