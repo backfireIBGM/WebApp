@@ -486,6 +486,7 @@ function createChannelDropdown() {
     for(let i = 1; i <= 3; i++) {
         const selectElement = document.createElement('select');
         selectElement.id = `channelSelect${i}`;
+        selectElement.style.marginBottom = '1rem';
         
         globalChannelList.forEach((channel, index) => {
             const option = document.createElement('option');
@@ -526,10 +527,6 @@ function createChannelDropdown() {
             const selectedChannel = event.target.value;
             const channelId = channelMapping[selectedChannel];
             
-            // Update header text when selection changes
-            const header = container.nextElementSibling;
-            header.textContent = selectedChannel;
-            
             if (i === 1) {
                 leftFeedIds = [channelId];
             } else if (i === 2) {
@@ -538,7 +535,7 @@ function createChannelDropdown() {
                 rightFeedIds = [channelId];
             }
             
-            console.log(`Dropdown ${i} selected channel:`, selectedChannel, 'ID:', channelId);
+            // console.log(`Dropdown ${i} selected channel:`, selectedChannel, 'ID:', channelId);
             reloadFeeds();
         });
     }
