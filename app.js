@@ -1,19 +1,18 @@
 const proxyUrl = 'https://corsproxy.io/';
 const jsonRocketLaunches = "https://fdo.rocketlaunch.live/json/launches/next/5";
 
-const rssUrls = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2RifWkKtDOJdsBA', // NSF
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q', // EDA
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA', // CSI
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCelXvXZDvx8_TdOOffevzGg', // EIS
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCNxwUG0Vq8TztWdxL83FLHQ', // RH
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCBNHHEoiSF8pcLgqLKVugOw', // MHouse
+const rssUrls = ['https://www.youtube.com/feeds/videos.xml?channel_id=UCciQ8wFcVoIIMi-lfu8-cjQ', // Anton
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCILl8ozWuxnFYXIe2svjHhg', // BPS.Space
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q', // Kurzgesagt
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCciQ8wFcVoIIMi-lfu8-cjQ', // Anton
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCy6Q9UCG7Wa-N7nht2BFrHA', // CSI
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCYNbYGl89UUowy8oXkipC-Q', // Dr. Becky
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UC1XvxnHFtWruS9egyFasP1Q', // WAI
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCelXvXZDvx8_TdOOffevzGg', // EIS
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UC6uKrU_WqJ1R2HMTY3LIx5Q', // EDA
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCsXVk37bltHxD1rDPwtNM8Q', // Kurzgesagt
     'https://www.youtube.com/feeds/videos.xml?channel_id=UCFwMITSkc1Fms6PoJoh1OUQ', // LP
-    'https://www.youtube.com/feeds/videos.xml?channel_id=UCQbKe0RZ62u47TZ8vmKNnRA'];
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCBNHHEoiSF8pcLgqLKVugOw', // Marcus House
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCSUu1lih2RifWkKtDOJdsBA', // NSF
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UCNxwUG0Vq8TztWdxL83FLHQ', // RHS
+    'https://www.youtube.com/feeds/videos.xml?channel_id=UC1XvxnHFtWruS9egyFasP1Q']; // WAI
 
 
 let globalChannelList = [
@@ -29,9 +28,7 @@ let globalChannelList = [
     'NASASpaceflight',
     'RGV Aerial Photography',
     'RyanHansenSpace',
-    'What about it!?',
-    'IDK'
-];
+    'What about it!?'];
 
 const channelMapping = {
     'Anton Petrov': 'UCciQ8wFcVoIIMi-lfu8-cjQ', // T
@@ -46,9 +43,7 @@ const channelMapping = {
     'NASASpaceflight': 'UCSUu1lih2RifWkKtDOJdsBA', // T
     'RGV Aerial Photography': 'UCNxwUG0Vq8TztWdxL83FLHQ',
     'RyanHansenSpace': 'UCNxwUG0Vq8TztWdxL83FLHQ', // T
-    'What about it!?': 'UC1XvxnHFtWruS9egyFasP1Q',
-    'IDK' : 'UCQbKe0RZ62u47TZ8vmKNnRA'
-};
+    'What about it!?': 'UC1XvxnHFtWruS9egyFasP1Q'};
 
 let leftFeedIds = [];
 
@@ -78,7 +73,7 @@ async function fetchAllRSSFeeds(proxyUrl, rssUrls) {
             allFeedItems.push(...feedItems);  // Push the current feed items
         }
 
-        console.log(allFeedItems);
+        // console.log(allFeedItems);
 
         return allFeedItems;
     } catch (error) {
@@ -464,9 +459,9 @@ function reloadFeeds() {
     .then(feedItems => {
         allFeedItems = feedItems;
         processFeed(feedItems, document.getElementById('searchBox').checked);
-        fetchLaunches(proxyUrl, jsonRocketLaunches);
         listChannleNames(feedItems);
-        createChannelDropdown();
+
+
     })
     .catch(error => {
         console.error('Error:', error);
@@ -479,7 +474,7 @@ async function fetchLaunches(proxyUrl, url) {
         const response = await fetch(`${proxyUrl}?url=${encodeURIComponent(url)}`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
 
         setTickerItems(data);
     } catch (error) {
@@ -515,6 +510,10 @@ function createChannelDropdown() {
         const selectedChannel = selectElement.value;
         const channelId = channelMapping[selectedChannel];
         
+        // Update initial header text
+        const header = container.nextElementSibling;
+        header.textContent = selectedChannel;
+        
         if (i === 1) {
             leftFeedIds = [channelId];
         } else if (i === 2) {
@@ -526,6 +525,10 @@ function createChannelDropdown() {
         selectElement.addEventListener('change', (event) => {
             const selectedChannel = event.target.value;
             const channelId = channelMapping[selectedChannel];
+            
+            // Update header text when selection changes
+            const header = container.nextElementSibling;
+            header.textContent = selectedChannel;
             
             if (i === 1) {
                 leftFeedIds = [channelId];
@@ -541,14 +544,15 @@ function createChannelDropdown() {
     }
 }
 
-// function sortChannelNames() {
-//     globalChannelList.sort((a, b) => a.localeCompare(b));
-//     console.log('Sorted Channels:', globalChannelList);
-// }
+function sortChannelNames() {
+    globalChannelList.sort((a, b) => a.localeCompare(b));
+    // console.log('Sorted Channels:', globalChannelList);
+}
 
 
 reloadFeeds();
-
+createChannelDropdown();
+fetchLaunches(proxyUrl, jsonRocketLaunches);
 
 
 function listChannleNames(videos) {
@@ -556,7 +560,7 @@ function listChannleNames(videos) {
     const uniqueChannels = new Set(videos.map(video => video.channelName));
     
     globalChannelList = Array.from(uniqueChannels); // Store in global variable
-    console.log('Channels:', globalChannelList);
+    // console.log('Channels:', globalChannelList);
 }
 
 const removeFromFeed = (channelId, feedPosition) => {
@@ -612,7 +616,7 @@ function setTickerItems(data) {
     }
 }
 
-rightFeedIds.push('UCQbKe0RZ62u47TZ8vmKNnRA');
+
 
 // Add event listener
 // checkbox.addEventListener('change', (e) => {
@@ -624,3 +628,8 @@ rightFeedIds.push('UCQbKe0RZ62u47TZ8vmKNnRA');
 
 //     reloadFeeds();
 // });
+
+
+leftFeedIds.push('UCciQ8wFcVoIIMi-lfu8-cjQ');
+middleFeedIds.push('UCILl8ozWuxnFYXIe2svjHhg');
+rightFeedIds.push('UCy6Q9UCG7Wa-N7nht2BFrHA');
