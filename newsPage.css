@@ -1,58 +1,55 @@
 body {
-    margin: 0;
-    padding: 0;
-    background-image: url('Milky_Way_illustration-1.jpeg');
-    background-size: cover;
-    height: 100vh;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-image: url('Milky_Way_illustration-1.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
 }
 
 .news-page {
-    min-height: 100vh;
-    background-image: url('Milky_Way_illustration-1.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 #news-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
-    padding: 20px 20px 40px; /* Added bottom padding */
+    padding: 20px 20px 40px;
     max-width: 1200px;
     margin: 3% auto 5rem;
 }
 
 header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #0c518d8c;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(12, 81, 141, 0.55);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
 
 .article-box {
-    display: inline-block;
-    padding: 15px;
-    background-color: black;
-    border-radius: 4px;
-    text-align: center;
- }
+  display: inline-block;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  text-align: center;
+}
  
- .article-cell {
-    padding: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
- }
+.article-cell {
+  padding: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .article-image-cell {
     width: 100%;
@@ -99,26 +96,17 @@ header {
     overflow: hidden;
     height: 64px;
     background-color: rgba(0, 0, 0, 0.9);
-    box-sizing: content-box;
-  }
+    z-index: 1000;
+}
   
-  .ticker {
-    display: inline-block;
-    height: 64px;
-    line-height: 4rem;  
-    white-space: nowrap;
-    padding-right: 100%;
-    box-sizing: content-box;
-    -webkit-animation-iteration-count: infinite; 
-    animation-iteration-count: infinite;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    -webkit-animation-name: ticker;
-    animation-name: ticker;
-    -webkit-animation-duration: 120s;
-    animation-duration: 120s;
-    color: white;
-  }
+.ticker {
+  display: inline-block;
+  height: 64px;
+  line-height: 4rem;
+  white-space: nowrap;
+  padding-right: 100%;
+  animation: ticker 120s linear infinite;
+}
   
   .ticker_item {
     display: inline-block;

@@ -8,7 +8,7 @@ getSpaceNewsWithEvent();
 
 async function getSpaceNewsWithEvent() {
     try {
-        const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=');
+        const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=10');
         const data = await response.json();
         
         // Log the entire response data
