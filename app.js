@@ -487,6 +487,7 @@ function createChannelDropdown() {
         const selectElement = document.createElement('select');
         selectElement.id = `channelSelect${i}`;
         selectElement.style.marginBottom = '1rem';
+        selectElement.style.marginLeft = '1rem';
         
         globalChannelList.forEach((channel, index) => {
             const option = document.createElement('option');
