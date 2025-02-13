@@ -340,12 +340,14 @@ function processLaunches(data) {
                 }
                 else {
                     rocketInfoCell.innerHTML = `
-                        <h3>Vehicle: ${vehicleName}</h3>
+                        <h3>Vehicle: ${vehicleName}</h3> 
                         <p>Height: ${rocketInfo.height}</p>
                         <p>Diameter: ${rocketInfo.diameter}</p>
                         <p>Mass: ${rocketInfo.mass}</p>
-                        <p>Thrust: ${rocketInfo.thrust}</p>
-                        <p>${rocketInfo.description}</p>
+                        <p>Payload To Low Earth Orbit: ${rocketInfo.payloadToLeo}</p>
+                        <p>Fairing Height: ${rocketInfo.payloadToLeo}</p>
+                        <p>Fairing Diameter: ${rocketInfo.payloadToLeo}</p>
+                        <p>Description: ${rocketInfo.description}</p>
                     `;
                 }
                 rocketInfoColumn.appendChild(rocketInfoCell);
@@ -445,62 +447,114 @@ function setTickerItems(data) {
 
 function getRocketInfo(vehicleName) {
     const rocketSpecs = {
-        "Falcon 9": {
+        "Falcon 9": { // done
             height: "70 m / 229.6 ft",
             diameter: "3.7 m / 12 ft",
-            mass: "549,054 kg / 1,207,920 lb",
-            thrust: "7,607 kN / 1,710,000 lbf",
-            payloadToLeo: "22,800 kg 50,265 lb",
-            payloadToGeo: "8,300 kg / 18,300 lb",
-            description: "Medium-lift orbital rocket featuring autonomous landing capability and reusable first stage powered by nine Merlin engines. Over 200 successful launches since 2010."
+            mass: "549,054 kg / 1,207,920 ib",
+            payloadToLeo: "22,800 kg / 50,265 ib",
+            fairingHeight: "8,300 kg / 18,300 ib",
+            fairingDiameter: "5.2 m / 17.1 ft",
+            description: "Falcon 9 is a reusable, two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of people and payloads into Earth orbit and beyond."
         },
-        "Falcon Heavy": {
+        "Falcon Heavy": { // done
             height: "70 m / 229.6 ft",
             diameter: "12.2 m / 39.9 ft",
-            mass: "1,420,788 kg / 3,125,735 lb",
-            payloadToLeo: "63,800 kg / 140,660 lb",
-            payloadToGeo: "26,700 kg / 58,860 lb",
-            description: "Two-stage-to-orbit heavy lift launch vehicle with reusable first stage."
+            mass: "1,420,788 kg / 3,125,735 ib",
+            payloadToLeo: "36,800 kg / 140,660 ib",
+            fairingHeight: "13.1 m / 43 ft",
+            fairingDiameter: "5.2 m / 17.1 ft",
+            description: "Falcon Heavy comprises three reusable Falcon 9 nine-engine cores."
         },
-        "Super Heavy / Starship Prototype": {
-            height: "120 m (394 ft)",
-            diameter: "9 m (30 ft)",
-            mass: "5,000,000 kg (11,000,000 lb)",
-            thrust: "74,000 kN (16,600,000 lbf)",
-            description: "Fully reusable super heavy-lift launch vehicle system."
+        "Super Heavy / Starship Prototype": { // done
+            height: "123 m / 403 ft",
+            diameter: "9 m / 29.5 ft",
+            mass: "Unknow",
+            payloadToLeo: "100 - 150 t",
+            fairingHeight: "Unknow",
+            fairingDiameter: "Unknow",
+            description: "SpaceX’s Starship spacecraft and Super Heavy rocket – collectively referred to as Starship – represent a fully reusable transportation system designed to carry both crew and cargo to Earth orbit, the Moon, Mars and beyond. Starship is the world’s most powerful launch vehicle ever."
         },
-        "New Glenn": {
-            height: "98 m (322 ft)",
-            diameter: "7 m (23 ft)",
+        "New Glenn": { // done
+            height: "98 m / 322 ft",
+            diameter: "7 m / 23 ft",
             mass: "Unknown",
-            thrust: "17,100 kN (3,850,000 lbf)",
-            description: "Heavy-lift orbital launch vehicle with reusable first stage."
+            payloadToLeo: "45 t / 99,208 ib",
+            fairingHeight: "5.4 m / 18 ft",
+            fairingDiameter: "7 m / 22.97 ft",
+            description: "New Glenn is a heavy-lift launch vehicle developed and operated by the American company Blue Origin. The rocket is designed to have a partially reusable, two-stage design with a diameter of 7 meters (23 ft). The first stage is powered by seven BE-4 engines, while the second stage relies on two BE-3U engines, all designed and built in-house by Blue Origin."
         },
-        "Eris": {
-            height: "40.5 m (133 ft)",
-            diameter: "2.8 m (9.2 ft)",
+        "Eris": { // done
+            height: "25 m / 82.02 ft",
+            diameter: "2 m / 6.56 ft)",
             mass: "Unknown",
-            thrust: "1,000 kN (225,000 lbf)",
-            description: "Three-stage small-lift launch vehicle designed for small satellite deployment."
+            payloadToLeo: "305 kg / 672.41 ib",
+            fairingHeight: "Unknown",
+            fairingDiameter: "1.2 or 1.5 m / 3.94 or 4.92 ft",
+            description: "Gilmour Space's innovative Eris orbital launch vehicles will deliver up to 305 kg to LEO with a first commercial launch expected in early 2025."
         },
-        "GSLV-II": {
-            height: "49 m (161 ft)",
-            diameter: "2.8 m (9.2 ft)",
-            mass: "414,750 kg (914,360 lb)",
-            thrust: "6,810 kN (1,530,000 lbf)",
-            description: "Three-stage medium-lift launch vehicle for both LEO and GTO missions."
+        "GSLV-II": { // done
+            height: "51.37 m / 168.5 ft",
+            diameter: "Unknown",
+            mass: "420 t / 925,942 ib",
+            payloadToLeo: "6,000 kg / 13,227.74 ib",
+            fairingHeight: "Unknown",
+            fairingDiameter: "3.4 or 4 m / 11.15 or 13.12 ft",
+            description: "Geosynchronous Satellite Launch Vehicle Mark II (GSLV Mk II) is the launch vehicle developed by India, to launch communication satellites in geo transfer orbit using cryogenic third stage. Initially Russian GK supplied cryogenic stages were used. Later cryogenic stage was indigenously developed and inducted in Jan 2014 from GSLV D5 onwards. This operational fourth generation launch vehicle is a three stage vehicle with four liquid strap-ons. The flight proven indigenously developed Cryogenic Upper Stage (CUS), forms the third stage of GSLV Mk II. From January 2014, the vehicle has achieved six consecutive successes"
+        },
+        "Jielong-3": { // done
+            height: "31 m / 101.7 ft",
+            diameter: "2.64 m / 8.66 ft",
+            mass: "140 t /  ib",
+            payloadToLeo: "1,500 kg / 3306.93 ib",
+            fairingHeight: "Unknown",
+            fairingDiameter: "3.35 m / 10.99 ft",
+            description: "Jielong 3, also known as CZ-11A, is a solid rocket launcher developed by CASC, with the aim of making it a competitive commercial sea-launched launcher."
+        },
+        "Long March 2D": { // done
+            height: "40.77 m / 134.7 ft",
+            diameter: "3.35 m / 11 ft",
+            mass: "232,250 kg / 512,020 ib",
+            payloadToLeo: "3,500 kg / 7,700 ib",
+            fairingHeight: "7.82 m / 25.66 ft",
+            fairingDiameter: "3.35 / 10.99 ft",
+            description: "LM-2D is a two-stage launch vehicle. It has an overall length of 41.056 m and a lift-off mass of 250 t. The maiden flight of LM-2D was in August, 1992. So far, the LM-2D enjoys a success rate of 100%."
+        },
+        "long March 8": { // done
+            height: "50 m / 164.04 ft",
+            diameter: "3.35 m / 11 ft",
+            mass: "5,000, or 3,000, or 7,000 / 11,000, or 6,600, or 15,000 ib",
+            payloadToLeo: "7,600 kg / 16755.13 ib",
+            fairingHeight: "12.1 m / 39.7 ft",
+            fairingDiameter: "4 m / 13.12 ft",
+            description: "Long March 8 (Chinese: 长征八号运载火箭) is an orbital launch vehicle developed by the China Academy of Launch Vehicle Technology to launch up to 5000 kg to a 700 km altitude Sun-synchronous orbit (SSO). The rocket is based on the Long March 7 with its first stage and two boosters, along with the existing liquid hydrogen burning third stage of the Long March 3A/3B/3C and 7A as its second stage. The boosters are omitted in the \"core only\" variant that first flew on its second launch in February 2022."
+        },
+        "Electron": { // done
+            height: "18 m / 59 ft",
+            diameter: "1.2 m / 3.9 ft",
+            mass: "13,000 kg / 28,660 lb",
+            payloadToLeo: "300 kg / 661 lb",
+            fairingHeight: "2.5 m / 8.2 ft",
+            fairingDiameter: "1.2 m / 3.94 ft",
+            description: "Electron is a two-stage, partially reusable orbital launch vehicle developed by Rocket Lab, an American aerospace company with a wholly owned New Zealand subsidiary. Servicing the commercial small satellite launch market, it is the third most launched small-lift launch vehicle in history. Its Rutherford engines are the first electric-pump-fed engine to power an orbital-class rocket. Electron is often flown with a kickstage or Rocket Lab's Photon spacecraft. Although the rocket was designed to be expendable, Rocket Lab has recovered the first stage twice and is working towards the capability of reusing the booster. The Flight 26 (F26) booster has featured the first helicopter catch recovery attempt. Rocket Lab has, however, abandoned the idea of catching Electron."
+        },
+        "Ariane 6": { // done
+            height: "63 m / 207 ft",
+            diameter: "5.4 m / 18 ft",
+            mass: "10,350, or 21,650 kg / 22,820, or 47,730 ib",
+            payloadToLeo: "10.3 t / 22,707.61 ib",
+            fairingHeight: "14 or 20 m / 45.93, or 65.61 ft",
+            fairingDiameter: "5.4 m / 17.71 ft",
+            description: "Ariane 6 is a European expendable launch system developed for the European Space Agency (ESA) and manufactured by a consortium of European companies, led by the prime contractor ArianeGroup. As part of the Ariane rocket family, it is operated by Arianespace, replacing the Ariane 5. The project’s primary contributors were France (55%), Germany (21%), and Italy (7.6%), with the remaining work distributed among ten other participating countries."
         }
-        // Jielong-3
-        // "Long March 2D"
-        // Long March 8
-
     };
 
     return rocketSpecs[vehicleName] || {
         height: "Not available",
         diameter: "Not available",
         mass: "Not available",
-        thrust: "Not available",
-        description: "Specifications not available for this vehicle."
+        payloadToLeo: "Not available",
+        fairingHeight: "Not available",
+        fairingDiameter: "Not available",
+        description: "Not available"
     };
 }
