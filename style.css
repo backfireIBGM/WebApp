@@ -59,17 +59,33 @@ h1 {
     }
   }
 
-#leftFeed, #middleFeed, #rightFeed {
+  @media (min-width: 540px) {
+    #leftFeed, #middleFeed, #rightFeed {
+        display: block;
+    }
+
+    #middle, #right {
+        display: block;
+    }
+
+    #leftFeed {
+        width: 33%;
+    }
+
+    #left {
+        width: 33%;
+    }    
+  }
+
+  #leftFeed, #middleFeed, #rightFeed {
     overflow: scroll;
-    overflow-x: hidden; 
-    width: 100%;
+    overflow-x: hidden;
     height: 65vh;
     float: left;
     padding-bottom: 85px;
 }
 
 #left, #middle, #right {
-    width: 33%;
     float: left;
 }
 
