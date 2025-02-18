@@ -41,6 +41,24 @@ h1 {
     font-size: 5em;
 }
 
+@media (max-width: 540px) {
+    #middleFeed, #rightFeed {
+        display: none;
+    }
+
+    #middle, #right {
+        display: none;
+    }
+
+    #leftFeed {
+        width: 100%;
+    }
+
+    #left {
+        width: 100%;
+    }
+  }
+
 #leftFeed, #middleFeed, #rightFeed {
     overflow: scroll;
     overflow-x: hidden; 
@@ -54,6 +72,8 @@ h1 {
     width: 33%;
     float: left;
 }
+
+
 
 .feed-header {
     width: 100%;
