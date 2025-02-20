@@ -41,51 +41,18 @@ h1 {
     font-size: 5em;
 }
 
-@media (max-width: 540px) {
-    #middleFeed, #rightFeed {
-        display: none;
-    }
 
-    #middle, #right {
-        display: none;
-    }
-
-    #leftFeed {
-        width: 100%;
-    }
-
-    #left {
-        width: 100%;
-    }
-  }
-
-  @media (min-width: 540px) {
-    #leftFeed, #middleFeed, #rightFeed {
-        display: block;
-    }
-
-    #middle, #right {
-        display: block;
-    }
-
-    #leftFeed {
-        width: 33%;
-    }
-
-    #left {
-        width: 33%;
-    }    
-  }
-
-  #leftFeed, #middleFeed, #rightFeed {
+#leftFeed, #middleFeed, #rightFeed {
     overflow: scroll;
-    overflow-x: hidden;
+    overflow-x: hidden; 
+    width: 100%;
     height: 65vh;
     float: left;
     padding-bottom: 85px;
 }
 
 #left, #middle, #right {
+    width: 33%;
     float: left;
 }
 
@@ -269,7 +236,7 @@ label {
 
 .image-column {
     width: 100%;
-    height: 300px;  /* Fixed height */
+    height: 300px;
 }
 
 
@@ -419,3 +386,48 @@ label {
     padding: 0 2rem;
     font-size: 2rem;
   }
+
+  .channel-select {
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 992px) {
+
+}
+
+@media (max-width: 576px) {
+
+    #middleFeed, #rightFeed {
+        display: none;
+    }
+
+    #middle, #right {
+        display: none;
+    }
+
+    #leftFeed {
+        width: 100%;
+        float: center;
+    }
+
+    #left {
+        width: 100%;
+        float: center;
+    }
+
+    .channel-select {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1rem;
+    }
+
+    .image-column {
+        width: 33%;
+    }
+}

@@ -33,7 +33,8 @@ async function fetchLaunches(proxyUrl, url) {
 function setDateToLaunch(data) {
 
     const countDownBox = document.createElement('div');
-    countDownBox.style.position = 'absolute';
+    countDownBox.className = 'infoColumnDiv';
+    countDownBox.style.position = 'retive';
     countDownBox.style.top = '20%';
     countDownBox.style.left = '59.0%';
     countDownBox.style.textAlign = 'center';
