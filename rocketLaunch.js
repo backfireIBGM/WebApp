@@ -208,6 +208,7 @@ function showMoreInfo(data, isHovered) {
 }
  
 function setInitialGridWidths() {
+    if (window.innerWidth > 576) {
     const infoColumn = document.querySelector('.info-column');
     const countdownColumn = document.querySelector('.countdown-column');
     
@@ -221,6 +222,12 @@ function setInitialGridWidths() {
     
     infoColumn.style.width = `${infoWidth}px`;
     countdownColumn.style.width = `${countdownWidth}px`;
+    }
+    else {
+        // Clear inline styles for small screens so CSS can take effect
+        infoColumn.style.width = '';
+        countdownColumn.style.width = '';
+    }
 }
 
 function processLaunches(data) {

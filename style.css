@@ -153,7 +153,6 @@ body.search-active h2.feed-header {
     width: 100%;
     text-align: center;
     padding: 20px;
-    box-sizing: border-box;
 }
 
 .video-checkbox {
@@ -214,7 +213,6 @@ label {
 
 .launches-grid {
     display: grid;
-    grid-template-columns: minmax(auto, max-content) minmax(auto, max-content) minmax(auto, max-content);
     gap: 5px;
     margin-left: 10%;
     margin-right: 10%;
@@ -222,8 +220,6 @@ label {
     margin-bottom: 100px;
     height: auto;
 }
-
-
 
 .name-column {
     width: 100%;
@@ -235,23 +231,26 @@ label {
 }
 
 .image-column {
-    width: 100%;
-    height: 300px;
+    width: 200px;
+    width: 500px;
 }
-
-
 
 .info-column {
     grid-column: 1;
+    font-size: medium;
+    width: 500px;
 }
 
 .rocket-info-column {
     grid-column: 2;
+    width: 700px;
 }
 
 .countdown-column {
     grid-column: 3;
+    width: 200px;
 }
+
 
 .info-column, .rocket-info-column, .countdown-column {
     display: grid;
@@ -268,9 +267,9 @@ label {
 
 .grid-item h3 {
     margin: 0;
-    font-size: 2.5rem;
+    font-size: clamp(8px, 3vw, 50px);
     font-weight: bold;
-    white-space: nowrap;
+    text-wrap: auto;
 }
 
 .grid-item p {
@@ -292,15 +291,9 @@ label {
 }
 
 .timerBox {
-    width: 100%;
     text-align: center;
-}
-
-.time-unit {
-    font-weight: bold;
+    font-size: large;
     width: 100%;
-    text-align: center;
-    display: block;
 }
 
 .launch1 {
@@ -325,10 +318,6 @@ label {
     src: url('./seven-segment/Seven Segment.ttf') format('truetype');
 }
 
-* { 
-    box-sizing: border-box; 
-  }
-  
   @-webkit-keyframes ticker {
     0% {
       -webkit-transform: translate3d(0, 0, 0);
@@ -393,33 +382,69 @@ label {
 }
 
 @media (max-width: 1200px) {
+    .grid-item p {
+        font-size: 15px;
+        line-height: 15px;
+    }
 
+    .info-column {
+        width: 212px;
+    }
+
+    .rocket-info-column {
+        width: 212px;
+    }
+
+    .countdown-column {
+        width: 200px;
+    }
 }
 
 @media (max-width: 992px) {
 
+    .info-column {
+        width: 212px;
+    }
+
+    .rocket-info-column {
+        width: 212px;
+    }
+
+    .countdown-column {
+        width: 100px;
+    }
 }
 
 @media (max-width: 576px) {
 
+    .launches-grid {
+        margin-left: 5%;
+        margin-bottom: 25%;
+    }
+    
+    .grid-item p {
+        font-size: 0.5em;
+        line-height: 8px;
+    }
+
     #middleFeed, #rightFeed {
         display: none;
     }
-
+    
     #middle, #right {
         display: none;
     }
-
+    
     #leftFeed {
         width: 100%;
         float: center;
     }
-
+    
     #left {
         width: 100%;
         float: center;
     }
-
+    
     .channel-select {
         display: block;
         margin-left: auto;
@@ -427,7 +452,15 @@ label {
         margin-bottom: 1rem;
     }
 
-    .image-column {
-        width: 33%;
+    .info-column {
+        width: 100px;
+    }
+
+    .rocket-info-column {
+        width: 130px;
+    }
+
+    .countdown-column {
+        width: 100px;
     }
 }
