@@ -558,13 +558,13 @@ function getRocketInfo(vehicleName) {
             description: "Ariane 6 is a European expendable launch system developed for the European Space Agency (ESA) and manufactured by a consortium of European companies, led by the prime contractor ArianeGroup. As part of the Ariane rocket family, it is operated by Arianespace, replacing the Ariane 5. The project’s primary contributors were France (55%), Germany (21%), and Italy (7.6%), with the remaining work distributed among ten other participating countries."
         },
         "Soyuz-2": { // in work
-            height: "46.3 m / 152 ft",
-            diameter: "10.3 m / 33 ft 10 in",
-            mass: "312,000 kg / 688,000 ib",
-            payloadToLeo: "8,670 kg / 19,110 ib",
-            fairingHeight: "11.43 m / 37.5 ft",
-            fairingDiameter: "4.11 m / 13.49 ft",
-            description: "Soyuz‑2 (Russian: Союз‑2, lit. 'Union‑2') (GRAU index: 14A14) is a modernized expendable medium-lift launch vehicle and the seventh major version of the Soyuz rocket family."
+            height: "46.3 m / 1 ft",
+            diameter: " m /  ft",
+            mass: " kg / ib",
+            payloadToLeo: ". t / . ib",
+            fairingHeight: ". m / . ft",
+            fairingDiameter: ". m / . ft",
+            description: ""
         },
         
     };
