@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rocket Radar | Launches</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chat.css">
     <link rel="icon" type="image/x-icon" href="RocketRadarFavicon.ico">
 </head>
 <body class="rocket-launches-page">
@@ -13,7 +14,7 @@
         <a id="homeButton" href="./newspage.html">News</a>
     </header>
     <div class="header-container">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
             <!-- Gradient definitions -->
             <defs>
               <linearGradient id="sweepGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -83,8 +84,18 @@
           </svg>
     </div>
     <div class="launches-grid"></div>
+    <div id="chatBot">
+      <h1>Ask about the rocket launches on this page</h1>
+      <input type="text" id="questionInput" placeholder="Enter your rocket question">
+      <button onclick="getAnswer()">Ask</button>
+      
+      <div id="result">
+          <p>Results will appear here...</p>
+      </div>
+    </div>
+    
+    <div class="ticker">
     <div class="ticker-wrap">
-        <div class="ticker">
-</body>
+      </body>
 <script src="rocketLaunch.js"></script>
 </html>

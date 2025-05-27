@@ -579,3 +579,45 @@ function getRocketInfo(vehicleName) {
         description: "Not available"
     };
 }
+
+function getAnswer() {
+    // Get the question from the input field
+    const question = document.getElementById('questionInput').value;
+
+    // Show loading message
+    document.getElementById('result').innerHTML = '<p>Getting the latest data ...</p>';
+
+    // Call the Azure Function
+    fetch('https://rocketinfo.azurewebsites.net/api/rocketinfo?question=' + encodeURIComponent(question))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('API request failed with status ' + response.status);
+            }
+
+            // Show intermediate message
+            document.getElementById('result').innerHTML = '<p>Answering your question ...</p>';
+
+            return response.json();
+        })
+        .then(data => {
+            console.log(data); // Log for debugging
+
+            const userQuestion = data.question;
+            const aiResponse = data.response;
+
+            // Convert markdown-style formatting to HTML
+            const formattedResponse = aiResponse
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n(\s*)-\s/g, '<br>• ');
+
+            // Display the response
+            document.getElementById('result').innerHTML = `
+                <p>${formattedResponse}</p>`;
+        })
+        .catch(error => {
+            // Handle errors
+            document.getElementById('result').innerHTML = `<p>Error: ${error.message}</p>`;
+            console.error('Error:', error);
+        });
+}
